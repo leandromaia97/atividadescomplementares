@@ -24,7 +24,7 @@
                                     <th scope="col">Ínicio</th>
                                     <th scope="col">Término</th>
                                     <th scope="col">Carga Horária</th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col">Situação</th>
                                     <th scope="col">Ações</th>
                                 </tr>
                             </thead>
@@ -34,7 +34,7 @@
                                     <td>Atividade Complementar</td>
                                     <td><i class="far fa-calendar-alt"></i> 17/12/2019</td>
                                     <td><i class="far fa-calendar-alt"></i> 18/12/2019</td>
-                                    <td><i class="far fa-clock"></i> 40h</td>
+                                    <td><i class="far fa-clock"></i> 40<span>h</span></td>
                                     <td>Em análise</td>
                                     <td>
                                         <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editarcertificado">Editar</button>
@@ -92,7 +92,7 @@
                                 <div class="input-group">
                                     <input type="text" id="editar_cargahoraria" name="cargahoraria" class="form-control" placeholder="00" aria-label="Carga Horária" aria-describedby="cargahoraria">
                                     <div class="input-group-append">
-                                        <span class="input-group-text" id="cargahoraria">Horas</span>
+                                        <span class="input-group-text" id="cargahoraria">h</span>
                                     </div>
                                 </div>
                             </div>                        
@@ -199,7 +199,7 @@
                                 <div class="input-group">
                                     <input type="text" id="cargahoraria" name="cargahoraria" class="form-control @error('cargahoraria') is-invalid @enderror" placeholder="00" aria-label="Carga Horária" aria-describedby="cargahoraria">
                                     <div class="input-group-append">
-                                        <span class="input-group-text" id="cargahoraria">Horas</span>
+                                        <span class="input-group-text" id="cargahoraria">h</span>
                                     </div>
                                 </div>
                                 @error('cargahoraria')
@@ -210,7 +210,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                <button type="submit" class="btn btn-primary">Salvar</button>
+                                <button type="submit" class="btn btn-success">Salvar</button>
                             </div>                       
                         </form>
                     </div>

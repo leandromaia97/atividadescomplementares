@@ -24,7 +24,7 @@
                                     <th scope="col">Ínicio</th>
                                     <th scope="col">Término</th>
                                     <th scope="col">Carga Horária</th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col">Situação</th>
                                     <th scope="col">Ações</th>
                                 </tr>
                             </thead>
@@ -35,7 +35,7 @@
                                     <td>Atividade Complementar</td>
                                     <td><i class="far fa-calendar-alt"></i> 17/12/2019</td>
                                     <td><i class="far fa-calendar-alt"></i> 18/12/2019</td>
-                                    <td><i class="far fa-clock"></i> 40h</td>
+                                    <td><i class="far fa-clock"></i> 40<span>h</span></td>
                                     <td>Não avaliado</td>
                                     <td>
                                         <button type="button" class="btn btn-primary">Baixar</button>
@@ -75,26 +75,27 @@
                             <div class="input-group">
                                 <input type="text" id="cargahoraria" name="cargahoraria" class="form-control" placeholder="00" aria-label="Carga Horária" aria-describedby="cargahoraria" readonly>
                                 <div class="input-group-append">
-                                    <span class="input-group-text" id="cargahoraria">Horas</span>
+                                    <span class="input-group-text" id="cargahoraria">h</span>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="status">Status</label>
-                            <select id="status" class="form-control" name="status">
-                                <option>Aprovado</option>
-                                <option>Reprovado</option>
+                            <label for="situacao">Situação</label>
+                            <select id="situacao" class="form-control" name="situacao">
+                                <option value="Aprovado">Aprovado</option>
+                                <option value="Reprovado">Reprovado</option>
+                                <option value="Em análise">Em análise</option>
                             </select>
                         </div>
                         <div class="form-group col-md-12">
-                            <label for="motivo">Motivo</label>
-                            <textarea class="form-control" id="motivo" name="motivo" rows="3"></textarea>
+                            <label for="justificativa">Justificativa</label>
+                            <textarea class="form-control" id="justificativa" name="justificativa" rows="3" placeholder="Escreva aqui sua justificativa para a situação do certificado do(a) aluno(a)."></textarea>
                         </div>                 
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-primary">Salvar</button>
+                    <button type="button" class="btn btn-success">Salvar</button>
                 </div>
             </div>
         </div>

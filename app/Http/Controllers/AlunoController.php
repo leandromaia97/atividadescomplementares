@@ -36,24 +36,27 @@ class AlunoController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
         $validacao = $request->validate([
-            'anexar_arquivo' => 'required',
-            'certificado' => 'required',
+            'anexararquivo' => 'required',
+            'nomecertificado' => 'required',
             'tipo' => 'required',
             'inicio' => 'required',
             'termino' => 'required',
             'cargahoraria' => 'required',
         ]);
 
-        $certificado = new Certificado;
+        $certificado = new Certificados;
 
         $certificado->arquivo = $request->anexararquivo;
         $certificado->nome_certificado = $request->nomecertificado;
         $certificado->tipo = $request->tipo;
+        $certificado->inicio = $request->inicio;
+        $certificado->termino = $request->termino;
         $certificado->carga_horaria = $request->cargahoraria;
         
         $certificado->save();
-        //dd($validacao);
+        
     }
 
     /**
