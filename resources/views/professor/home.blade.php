@@ -39,19 +39,20 @@
                                     <td>Não avaliado</td>
                                     <td>
                                         <button type="button" class="btn btn-primary">Baixar</button>
-                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">Avaliar</button>
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#avaliarcertificado">Avaliar</button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#consultaraluno">Consultar Aluno</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Modal Avaliar Certificado-->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="avaliarcertificado" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -96,6 +97,64 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                     <button type="button" class="btn btn-success">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Consultar Aluno -->
+    <div class="modal fade" id="consultaraluno" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Consultar Aluno</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="" action="">
+                    @csrf
+                        <div class="form-group col-md-11">
+                            <div class="form-inline">
+                                <input class="form-control mr-1" type="search" placeholder="Pesquisar" aria-label="Search">
+                                <button class="btn btn-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-11">
+                            <label for="nomealuno">Nome do Aluno</label>
+                            <input type="text" class="form-control" id="nomealuno" name="nomealuno" placeholder="nome do aluno" readonly>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="totalhoras">Total de Horas Complementares</label>
+                        </div>
+                        <div class="form-group col-md-3 col-sm-5">
+                            <div class="input-group">
+                                <input type="text" id="totalhoras" name="totalhorascomplementares" class="form-control" placeholder="00" aria-label="Total Horas Complementares" aria-describedby="totalhorascomplementares" readonly>
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="totalhorascomplementares">h</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="minimohoras">Minimo de horas para aprovação</label>
+                        </div>
+                        <div class="form-group col-md-3 col-sm-5">
+                            <div class="input-group">
+                                <input type="text" id="minimohoras" name="minimohorascomplementares" class="form-control" placeholder="00" aria-label="Carga Horária" aria-describedby="cargahoraria" readonly>
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="minimohoras">h</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="situacaoaluno">Situação do Aluno</label>
+                            <input type="text" class="form-control" id="situacaoaluno" name="situacaoaluno" placeholder="situação do aluno" readonly>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>

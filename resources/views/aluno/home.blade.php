@@ -142,8 +142,8 @@
                         @csrf
                             <div class="form-group col-md-12">
                                 <label for="anexar_arquivo">Clique no botão "<b>Escolher arquivo</b>" para inserir seu Certificado</label>
-                                <input type="file" class="form-control-file @error('anexar_arquivo') is-invalid @enderror" id="anexar_arquivo" name="anexararquivo">
-                                @error('anexar_arquivo')
+                                <input type="file" class="form-control-file @error('anexararquivo') is-invalid @enderror" id="anexar_arquivo" name="anexararquivo">
+                                @error('anexararquivo')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -151,8 +151,8 @@
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="certificado">Certificado</label>
-                                <input type="text" class="form-control @error('certificado') is-invalid @enderror" id="certificado" name="nomecertificado" placeholder="Digite o nome do certificado">
-                                @error('certificado')
+                                <input type="text" class="form-control @error('nomecertificado') is-invalid @enderror" id="certificado" name="nomecertificado" placeholder="Digite o nome do certificado">
+                                @error('nomecertificado')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -161,7 +161,7 @@
                             <div class="form-group col-md-12">
                                 <label for="tipo">Tipo</label>
                                 <select class="form-control @error('tipo') is-invalid @enderror" name="tipo" id="tipo">
-                                    <option selected>Selecionar...</option>
+                                    <option>Selecionar...</option>
                                     <option value="Declaração de participação em eventos">Declaração de participação em eventos</option>
                                     <option value="Certificado de conclusão de curso de capacitação">Certificado de conclusão de curso de capacitação</option>
                                     <option value="Declaração de participação em amostra cultural">Declaração de participação em amostra cultural</option>

@@ -15,8 +15,7 @@ class CreateCertificadosTable extends Migration
     {
         Schema::create('certificados', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-            $table->binary('local_arquivo');
+            $table->string('url');
             $table->string('nome_certificado', 255);
             $table->string('tipo', 255);
             $table->date('inicio');
@@ -25,8 +24,6 @@ class CreateCertificadosTable extends Migration
             $table->integer('total_horas_complementares')->nullable();
             $table->integer('minimo_horas_complementares')->nullable();
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

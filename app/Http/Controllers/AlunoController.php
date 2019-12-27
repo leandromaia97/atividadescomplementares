@@ -38,7 +38,7 @@ class AlunoController extends Controller
     {
         //dd($request);
         $validacao = $request->validate([
-            'anexararquivo' => 'required',
+            'anexararquivo' => 'required | mimes::pdf,doc,docx,jpeg,jpg,png',
             'nomecertificado' => 'required',
             'tipo' => 'required',
             'inicio' => 'required',
@@ -46,16 +46,21 @@ class AlunoController extends Controller
             'cargahoraria' => 'required',
         ]);
 
-        $certificado = new Certificados;
+        if($request->file('arquivo')->isValid()){
 
-        $certificado->arquivo = $request->anexararquivo;
-        $certificado->nome_certificado = $request->nomecertificado;
-        $certificado->tipo = $request->tipo;
-        $certificado->inicio = $request->inicio;
-        $certificado->termino = $request->termino;
-        $certificado->carga_horaria = $request->cargahoraria;
-        
-        $certificado->save();
+            $ext = $request->file('arquivo')->getClientOriginalExtension();
+
+            $certificado = new Certificados();
+
+            $certificado->arquivo = $request->anexararquivo;
+            $certificado->nome_certificado = $request->nomecertificado;
+            $certificado->tipo = $request->tipo;
+            $certificado->inicio = $request->inicio;
+            $certificado->termino = $request->termino;
+            $certificado->carga_horaria = $request->cargahoraria;
+            
+            $certificado->save();
+        }
         
     }
 
