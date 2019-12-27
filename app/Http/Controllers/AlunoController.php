@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Model\Certificados;
 use Illuminate\Support\Facades\DB;
+use Validation;
+use Storage;
 
 class AlunoController extends Controller
 {
@@ -37,8 +39,8 @@ class AlunoController extends Controller
     public function store(Request $request)
     {
         //dd($request);
-        $validacao = $request->validate([
-            'anexararquivo' => 'required | mimes::pdf,doc,docx,jpeg,jpg,png',
+        $request->validate([
+            'anexararquivo' => 'required|mimes:pdf,doc,docx,jpeg,jpg,png',
             'nomecertificado' => 'required',
             'tipo' => 'required',
             'inicio' => 'required',
@@ -46,13 +48,15 @@ class AlunoController extends Controller
             'cargahoraria' => 'required',
         ]);
 
-        if($request->file('arquivo')->isValid()){
+        $msg = "Não foi possível enviar o certificado. Por favor tente novamente";
 
-            $ext = $request->file('arquivo')->getClientOriginalExtension();
+        if($request->file('anexararquivo')->isValid()){
+
+            $ext = $request->file('anexararquivo')->getClientOriginalExtension();
 
             $certificado = new Certificados();
 
-            $certificado->arquivo = $request->anexararquivo;
+            $certificado->url = $request->file('anexararquivo')->storeAs('certificados','atividadecomplementar.'.$ext,'local');
             $certificado->nome_certificado = $request->nomecertificado;
             $certificado->tipo = $request->tipo;
             $certificado->inicio = $request->inicio;
@@ -60,7 +64,11 @@ class AlunoController extends Controller
             $certificado->carga_horaria = $request->cargahoraria;
             
             $certificado->save();
+
+            $msg = "O certificado foi enviado com sucesso";
         }
+
+        return redirect()->back()->with('mensagem',$msg);
         
     }
 

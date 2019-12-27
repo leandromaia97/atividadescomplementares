@@ -50,10 +50,26 @@
                         <!-- <div id="donut_single" style="width: 900px; height: 500px;"></div> -->
                         <div>Total de Horas Complementares:</div>
                         <div>Minimo para aprovação:</div>
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+                        @if(Session('mensagem'))
+                        <div class="alert alert-success">
+                            {{Session('mensagem')}}
+                        </div>
+                        @endif
                     </div>
+
                     <div class="mx-auto">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inserircertificado">Inserir Certificado</button>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -138,7 +154,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" action="{{route('InserirCertificado')}}">
+                        <form method="POST" action="{{route('InserirCertificado')}}" enctype="multipart/form-data">
                         @csrf
                             <div class="form-group col-md-12">
                                 <label for="anexar_arquivo">Clique no botão "<b>Escolher arquivo</b>" para inserir seu Certificado</label>
