@@ -29,19 +29,21 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($resultado as $certificado)
                                 <tr>
-                                    <td>Leandro</td>
-                                    <td>Curso de Programação</td>
-                                    <td>Atividade Complementar</td>
-                                    <td><i class="far fa-calendar-alt"></i> 17/12/2019</td>
-                                    <td><i class="far fa-calendar-alt"></i> 18/12/2019</td>
-                                    <td><i class="far fa-clock"></i> 40<span>h</span></td>
-                                    <td>Não avaliado</td>
+                                    <td></td>
+                                    <td>{{$certificado->nome_certificado}}</td>
+                                    <td>{{$certificado->tipo}}</td>
+                                    <td><i class="far fa-calendar-alt"></i> {{$certificado->inicio}}</td>
+                                    <td><i class="far fa-calendar-alt"></i> {{$certificado->termino}}</td>
+                                    <td><i class="far fa-clock"></i> {{$certificado->carga_horaria}}<span>h</span></td>
+                                    <td></td>
                                     <td>
-                                        <button type="button" class="btn btn-primary">Baixar</button>
+                                        <a href="{{ route('BaixarArquivo', $file->id) }}" role="button" class="btn btn-primary">Baixar</a>
                                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#avaliarcertificado">Avaliar</button>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Model\Certificados;
+use Illuminate\Support\Facades\DB;
+use Validation;
+use Storage;
 
 class ProfessorController extends Controller
 {
@@ -13,7 +17,8 @@ class ProfessorController extends Controller
      */
     public function index()
     {
-        return view ('professor.home');
+        $resultado = $this->mostrarCertificado();
+        return view ('professor.home', compact('resultado'));
     }
 
     /**
@@ -46,6 +51,25 @@ class ProfessorController extends Controller
     public function show($id)
     {
         //
+    }
+
+    /* 
+     * Função para mostrar o aluno os certificados o total e o minino de horas complementares na tela
+     * para o professor
+     */
+    public function mostrarCertificado()
+    {
+        $exibir = DB::table('certificados')->SELECT('nome_certificado', 'tipo', 'inicio',
+        'termino', 'carga_horaria', 'total_horas_complementares', 'minimo_horas_complementares')->get();
+
+        return $exibir;
+    }
+
+    /* Função para fazer o download do certificado */
+    public function baixarArquivo($id)
+    {
+        $download = File::find($id);
+        return Storage::download($download->path, $download->title);
     }
 
     /**

@@ -18,8 +18,8 @@ class CreateCertificadosTable extends Migration
             $table->string('url')->nullable();
             $table->string('nome_certificado', 255);
             $table->string('tipo', 255);
-            $table->date('inicio');
-            $table->date('termino');
+            $table->string('inicio', 10);
+            $table->string('termino', 10);
             $table->integer('carga_horaria');
             $table->integer('total_horas_complementares')->nullable();
             $table->integer('minimo_horas_complementares')->nullable();

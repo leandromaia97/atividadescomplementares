@@ -17,7 +17,8 @@ class AlunoController extends Controller
      */
     public function index()
     {
-        return view ('aluno.home');
+        $resultado = $this->mostrarCertificado();
+        return view ('aluno.home', compact('resultado'));
     }
 
     /**
@@ -81,6 +82,16 @@ class AlunoController extends Controller
     public function show($id)
     {
         //
+    }
+
+    /* Função para mostrar os certificados o total e o minino de horas complementares na tela para o aluno */
+    public function mostrarCertificado()
+    {
+        $exibir = DB::table('certificados')->SELECT('nome_certificado', 'tipo', 'inicio',
+        'termino', 'carga_horaria', 'total_horas_complementares', 'minimo_horas_complementares')->get();
+
+        return $exibir;
+
     }
 
     /**

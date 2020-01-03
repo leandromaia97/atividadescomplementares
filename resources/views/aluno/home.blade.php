@@ -29,19 +29,27 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if(empty($resultado))
+                                    <div class="alert alert-warning col-6 offset-3" role="alert">Você não enviou nenhum certificado ainda</div>
+                                @else
+                                
+                                @foreach($resultado as $certificado)
                                 <tr>
-                                    <td>Curso de Programação</td>
-                                    <td>Atividade Complementar</td>
-                                    <td><i class="far fa-calendar-alt"></i> 17/12/2019</td>
-                                    <td><i class="far fa-calendar-alt"></i> 18/12/2019</td>
-                                    <td><i class="far fa-clock"></i> 40<span>h</span></td>
-                                    <td>Em análise</td>
+                                    <td>{{$certificado->nome_certificado}}</td>
+                                    <td>{{$certificado->tipo}}</td>
+                                    <td><i class="far fa-calendar-alt"></i> {{$certificado->inicio}}</td>
+                                    <td><i class="far fa-calendar-alt"></i> {{$certificado->termino}}</td>
+                                    <td><i class="far fa-clock"></i> {{$certificado->carga_horaria}}<span>h</span></td>
+                                    <td></td>
                                     <td>
                                         <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editarcertificado">Editar</button>
                                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#excluircertificado">Excluir</button>
-                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#">Detalhes</button>
+                                        <button type="button" class="btn btn-success">Baixar</button>
                                     </td>
                                 </tr>
+                                @endforeach
+
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -102,6 +110,28 @@
                                     <option value=""></option>
                                     <option value=""></option>
                                 </select>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="editar_inicio">Ínicio</label>
+                                        <input type="text" class="form-control @error('inicio') is-invalid @enderror" id="editar_inicio" name="inicio" placeholder="DD/MM/AAAA">
+                                        @error('inicio')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="editar_termino">Término</label>
+                                        <input type="text" class="form-control @error('termino') is-invalid @enderror" id="editar_termino" name="termino" placeholder="DD/MM/AAAA">
+                                        @error('termino')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group col-md-4 col-sm-5">
                                 <label for="editar_cargahoraria">Carga Horária</label>
@@ -178,9 +208,9 @@
                                 <label for="tipo">Tipo</label>
                                 <select class="form-control @error('tipo') is-invalid @enderror" name="tipo" id="tipo">
                                     <option>Selecionar...</option>
-                                    <option value="Declaração de participação em eventos">Declaração de participação em eventos</option>
-                                    <option value="Certificado de conclusão de curso de capacitação">Certificado de conclusão de curso de capacitação</option>
-                                    <option value="Declaração de participação em amostra cultural">Declaração de participação em amostra cultural</option>
+                                    <option value="Declaração de Participação em Eventos">Declaração de Participação em Eventos</option>
+                                    <option value="Certificado de Conclusão de Curso de Capacitação">Certificado de Conclusão de Curso de Capacitação</option>
+                                    <option value="Declaração de Participação em Amostra Cultural">Declaração de Participação em Amostra Cultural</option>
                                 </select>
                                 @error('tipo')
                                 <span class="invalid-feedback" role="alert">
@@ -191,8 +221,8 @@
                             <div class="form-group col-md-12">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label for="certificado">Ínicio</label>
-                                        <input type="date" class="form-control @error('inicio') is-invalid @enderror" id="inicio" name="inicio" placeholder="">
+                                        <label for="inicio">Ínicio</label>
+                                        <input type="text" class="form-control @error('inicio') is-invalid @enderror" id="inicio" name="inicio" placeholder="DD/MM/AAAA">
                                         @error('inicio')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -200,8 +230,8 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="certificado">Término</label>
-                                        <input type="date" class="form-control @error('termino') is-invalid @enderror" id="termino" name="termino" placeholder="">
+                                        <label for="termino">Término</label>
+                                        <input type="text" class="form-control @error('termino') is-invalid @enderror" id="termino" name="termino" placeholder="DD/MM/AAAA">
                                         @error('termino')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -211,9 +241,9 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-4 col-sm-5">
-                                <label for="cargahoraria">Carga Horária</label>
+                                <label for="carga_horaria">Carga Horária</label>
                                 <div class="input-group">
-                                    <input type="text" id="cargahoraria" name="cargahoraria" class="form-control @error('cargahoraria') is-invalid @enderror" placeholder="00" aria-label="Carga Horária" aria-describedby="cargahoraria">
+                                    <input type="text" id="carga_horaria" name="cargahoraria" class="form-control @error('cargahoraria') is-invalid @enderror" placeholder="00" aria-label="Carga Horária" aria-describedby="cargahoraria">
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="cargahoraria">h</span>
                                     </div>
