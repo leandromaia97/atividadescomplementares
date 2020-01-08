@@ -68,8 +68,9 @@ class ProfessorController extends Controller
     /* Função para fazer o download do certificado */
     public function baixarArquivo($id)
     {
-        $download = File::find($id);
-        return Storage::download($download->path, $download->title);
+        //$download = File::find($id);
+        //return Storage::download($download->path, $download->title);
+        return Storage::download($id);
     }
 
     /**
