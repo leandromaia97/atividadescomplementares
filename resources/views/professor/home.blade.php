@@ -19,7 +19,6 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Aluno</th>
-                                    <th scope="col">Certificado</th>
                                     <th scope="col">Tipo</th>
                                     <th scope="col">Ínicio</th>
                                     <th scope="col">Término</th>
@@ -32,14 +31,13 @@
                                 @foreach($resultado as $certificado)
                                 <tr>
                                     <td></td>
-                                    <td>{{$certificado->nome_certificado}}</td>
                                     <td>{{$certificado->tipo}}</td>
                                     <td><i class="far fa-calendar-alt"></i> {{$certificado->inicio}}</td>
                                     <td><i class="far fa-calendar-alt"></i> {{$certificado->termino}}</td>
                                     <td><i class="far fa-clock"></i> {{$certificado->carga_horaria}}<span>h</span></td>
                                     <td></td>
                                     <td>
-                                        <a href="{{ route('BaixarArquivo', $certificado->id) }}" role="button" class="btn btn-primary">Baixar</a>
+                                        <a href="" role="button" class="btn btn-primary">Baixar</a>
                                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#avaliarcertificado">Avaliar</button>
                                     </td>
                                 </tr>
@@ -65,10 +63,6 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group col-md-12">
-                            <label for="nomecertificado">Certificado</label>
-                            <input type="text" class="form-control" id="nomecertificado" name="nomecertificado" placeholder="nome do certificado" readonly>
-                        </div>
                         <div class="form-group col-md-12">
                             <label for="tipo">Tipo</label>
                             <input type="text" class="form-control" id="tipo" name="tipo" placeholder="tipo" readonly>

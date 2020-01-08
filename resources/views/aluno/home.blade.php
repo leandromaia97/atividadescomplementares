@@ -42,9 +42,9 @@
                                     <td><i class="far fa-clock"></i> {{$certificado->carga_horaria}}<span>h</span></td>
                                     <td></td>
                                     <td>
-                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editarcertificado">Editar</button>
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#excluircertificado">Excluir</button>
-                                        <button type="button" class="btn btn-success">Baixar</button>
+                                        <button type="button" class="btn btn-warning mb-1" data-toggle="modal" data-target="#editarcertificado">Editar</button>
+                                        <button type="button" class="btn btn-danger mb-1" data-toggle="modal" data-target="#excluircertificado">Excluir</button>
+                                        <button type="button" class="btn btn-success mb-1">Baixar</button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -96,10 +96,6 @@
                     </div>
                     <div class="modal-body">
                         <form>
-                            <div class="form-group col-md-12">
-                                <label for="editar_certificado">Certificado</label>
-                                <input type="text" class="form-control" id="editar_certificado" name="nomecertificado" placeholder="Digite o nome do certificado">
-                            </div>
                             <div class="form-group col-md-12">
                                 <label for="editar_tipo">Tipo</label>
                                 <select class="form-control" id="editar_tipo">
@@ -187,18 +183,9 @@
                         <form method="POST" action="{{route('InserirCertificado')}}" enctype="multipart/form-data">
                         @csrf
                             <div class="form-group col-md-12">
-                                <label for="anexar_arquivo">Clique no botão "<b>Escolher arquivo</b>" para inserir seu Certificado</label>
-                                <input type="file" class="form-control-file @error('anexararquivo') is-invalid @enderror" id="anexar_arquivo" name="anexararquivo">
-                                @error('anexararquivo')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-12">
-                                <label for="certificado">Certificado</label>
-                                <input type="text" class="form-control @error('nomecertificado') is-invalid @enderror" id="certificado" name="nomecertificado" placeholder="Digite o nome do certificado">
-                                @error('nomecertificado')
+                                <label for="arquivo">Clique no botão "<b>Escolher arquivo</b>" para inserir seu Certificado</label>
+                                <input type="file" class="form-control-file @error('arquivo') is-invalid @enderror" id="arquivo" name="arquivo">
+                                @error('arquivo')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

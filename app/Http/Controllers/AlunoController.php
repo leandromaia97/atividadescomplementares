@@ -41,8 +41,7 @@ class AlunoController extends Controller
     {
         //dd($request);
         $request->validate([
-            'anexararquivo' => 'required|mimes:pdf,doc,docx,jpeg,jpg,png',
-            'nomecertificado' => 'required',
+            'arquivo' => 'required|mimes:pdf,doc,docx,jpeg,jpg,png',
             'tipo' => 'required',
             'inicio' => 'required',
             'termino' => 'required',
@@ -51,26 +50,26 @@ class AlunoController extends Controller
 
         $msg = "Não foi possível enviar o certificado. Por favor tente novamente";
 
-        if($request->file('anexararquivo')->isValid()){
+        if($request->file('arquivo')->isValid()){
 
-            $ext = $request->file('anexararquivo')->getClientOriginalExtension();
+            $path_certificados = $request->file('arquivo')->store('certificados', 'public');
+            $file = $request->file('arquivo');
 
-            $certificado = new Certificados();
+            $post_certificado = new Certificados();
+            $post_certificado->path_certificado = $path_certificados; //Salva o caminho do arquivo
+            $post_certificado->nome_certificado = $file->getClientOriginalName(); //Salva o nome do arquivo
+            $post_certificado->tipo = $request->tipo;
+            $post_certificado->inicio = $request->inicio;
+            $post_certificado->termino = $request->termino;
+            $post_certificado->carga_horaria = $request->cargahoraria;
 
-            $certificado->url = $request->file('anexararquivo')->storeAs('certificados','atividadecomplementar.'.$ext,'local');
-            $certificado->nome_certificado = $request->nomecertificado;
-            $certificado->tipo = $request->tipo;
-            $certificado->inicio = $request->inicio;
-            $certificado->termino = $request->termino;
-            $certificado->carga_horaria = $request->cargahoraria;
-            
-            $certificado->save();
-
+            $post_certificado->save();
             $msg = "O certificado foi enviado com sucesso";
+
         }
 
         return redirect()->back()->with('mensagem',$msg);
-        
+
     }
 
     /**
