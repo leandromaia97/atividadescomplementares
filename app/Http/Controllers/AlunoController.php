@@ -62,6 +62,7 @@ class AlunoController extends Controller
             $post_certificado->inicio = $request->inicio;
             $post_certificado->termino = $request->termino;
             $post_certificado->carga_horaria = $request->cargahoraria;
+            $post_certificado->user_id = 1;
 
             $post_certificado->save();
             $msg = "O certificado foi enviado com sucesso";

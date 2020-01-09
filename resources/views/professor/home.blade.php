@@ -1,3 +1,4 @@
+<!-- View do Professor -->
 @extends('layouts.app')
 @section('content')
 <div class="container">
@@ -37,7 +38,7 @@
                                     <td><i class="far fa-clock"></i> {{$certificado->carga_horaria}}<span>h</span></td>
                                     <td></td>
                                     <td>
-                                        <a href="" role="button" class="btn btn-primary">Baixar</a>
+                                        <a href="{{ route('DownloadCertificado', ['id' => $id]) }}" role="button" class="btn btn-primary">Baixar</a>
                                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#avaliarcertificado">Avaliar</button>
                                     </td>
                                 </tr>

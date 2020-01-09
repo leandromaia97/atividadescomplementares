@@ -66,11 +66,20 @@ class ProfessorController extends Controller
     }
 
     /* Função para fazer o download do certificado */
-    public function baixarArquivo($id)
+    public function download($id)
     {
-        //$download = File::find($id);
-        //return Storage::download($download->path, $download->title);
-        return Storage::download($id);
+        $id_user = Auth::user()->id;
+        $arquivo = Certificados::where('user_id', 1)->where('certificados_id')->first();
+
+        //dd($arquivo);
+
+        if(isset($arquivo)) {
+            $nome_certificado = $arquivo->nome_certificado;
+            $path = $arquivo->path_certificado;
+            return response()->download('storage/' . $path, $nome_certificado);
+        }
+
+        return redirect()->back()->with('erro', 'Não foi possivel encontrar o certificado solicitado');
     }
 
     /**

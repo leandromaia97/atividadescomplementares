@@ -111,7 +111,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label for="editar_inicio">Ínicio</label>
-                                        <input type="text" class="form-control @error('inicio') is-invalid @enderror" id="editar_inicio" name="inicio" placeholder="DD/MM/AAAA">
+                                        <input type="date" class="form-control @error('inicio') is-invalid @enderror" id="editar_inicio" name="inicio" placeholder="DD/MM/AAAA">
                                         @error('inicio')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -120,7 +120,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label for="editar_termino">Término</label>
-                                        <input type="text" class="form-control @error('termino') is-invalid @enderror" id="editar_termino" name="termino" placeholder="DD/MM/AAAA">
+                                        <input type="date" class="form-control @error('termino') is-invalid @enderror" id="editar_termino" name="termino" placeholder="DD/MM/AAAA">
                                         @error('termino')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -132,7 +132,7 @@
                             <div class="form-group col-md-4 col-sm-5">
                                 <label for="editar_cargahoraria">Carga Horária</label>
                                 <div class="input-group">
-                                    <input type="text" id="editar_cargahoraria" name="cargahoraria" class="form-control" placeholder="00" aria-label="Carga Horária" aria-describedby="cargahoraria">
+                                    <input type="number" id="editar_cargahoraria" name="cargahoraria" class="form-control" placeholder="00" aria-label="Carga Horária" aria-describedby="cargahoraria">
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="cargahoraria">h</span>
                                     </div>
@@ -209,7 +209,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label for="inicio">Ínicio</label>
-                                        <input type="text" class="form-control @error('inicio') is-invalid @enderror" id="inicio" name="inicio" placeholder="DD/MM/AAAA">
+                                        <input type="date" class="form-control @error('inicio') is-invalid @enderror" id="inicio" name="inicio" placeholder="DD/MM/AAAA">
                                         @error('inicio')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -218,7 +218,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label for="termino">Término</label>
-                                        <input type="text" class="form-control @error('termino') is-invalid @enderror" id="termino" name="termino" placeholder="DD/MM/AAAA">
+                                        <input type="date" class="form-control @error('termino') is-invalid @enderror" id="termino" name="termino" placeholder="DD/MM/AAAA">
                                         @error('termino')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -230,7 +230,7 @@
                             <div class="form-group col-md-4 col-sm-5">
                                 <label for="carga_horaria">Carga Horária</label>
                                 <div class="input-group">
-                                    <input type="text" id="carga_horaria" name="cargahoraria" class="form-control @error('cargahoraria') is-invalid @enderror" placeholder="00" aria-label="Carga Horária" aria-describedby="cargahoraria">
+                                    <input type="number" id="carga_horaria" name="cargahoraria" class="form-control @error('cargahoraria') is-invalid @enderror" placeholder="00" aria-label="Carga Horária" aria-describedby="cargahoraria">
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="cargahoraria">h</span>
                                     </div>

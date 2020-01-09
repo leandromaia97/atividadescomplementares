@@ -27,4 +27,4 @@ Route::get('/professor', 'ProfessorController@index')->name('ProfessorHome');
 Route::post('inserircertificado', 'AlunoController@store')->name('InserirCertificado');
 
 //Rota oara download dos certificados
-Route::get('/arquivo/download/{id}', 'ProfessorController@baixarArquivo')->name('BaixarArquivo');
+Route::get('/arquivo/download/{id}', 'ProfessorController@download')->name('DownloadCertificado');

@@ -14,15 +14,16 @@ class CreateCertificadosTable extends Migration
     public function up()
     {
         Schema::create('certificados', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('path_certificado')->nullable();
+            $table->bigIncrements('certificados_id');
+            $table->string('path_certificado');
             $table->string('nome_certificado', 255);
             $table->string('tipo', 255);
-            $table->string('inicio', 10);
-            $table->string('termino', 10);
+            $table->date('inicio');
+            $table->date('termino');
             $table->integer('carga_horaria');
             $table->integer('total_horas_complementares')->nullable();
             $table->integer('minimo_horas_complementares')->nullable();
+            $table->integer('user_id');
             $table->timestamps();
         });
     }
