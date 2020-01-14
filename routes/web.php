@@ -28,3 +28,4 @@ Route::post('inserircertificado', 'AlunoController@store')->name('InserirCertifi
 
 //Rota oara download dos certificados
 Route::get('/arquivo/download/{id}', 'ProfessorController@download')->name('DownloadCertificado');
+Route::get('/arquivo/download_aluno/{id}', 'AlunoController@download')->name('BaixarCertificado');

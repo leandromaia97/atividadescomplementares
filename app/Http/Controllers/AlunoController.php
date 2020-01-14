@@ -87,11 +87,27 @@ class AlunoController extends Controller
     /* Função para mostrar os certificados o total e o minino de horas complementares na tela para o aluno */
     public function mostrarCertificado()
     {
-        $exibir = DB::table('certificados')->SELECT('nome_certificado', 'tipo', 'inicio',
-        'termino', 'carga_horaria', 'total_horas_complementares', 'minimo_horas_complementares')->get();
+        $exibir = DB::table('certificados')->get();
 
         return $exibir;
 
+    }
+
+    /* Função para fazer o download do certificado */
+    public function download($id)
+    {
+        //$id_user = Auth::user()->id;
+        $arquivo = Certificados::where('user_id', 1)->where('certificados_id', $id)->first();
+
+       //dd($arquivo);
+
+        if(isset($arquivo)) {
+            $nome_certificado = $arquivo->nome_certificado;
+            $path = $arquivo->path_certificado;
+            return response()->download('storage/' . $path, $nome_certificado);
+        }
+
+        return redirect()->back()->with('erro', 'Não foi possivel encontrar o certificado solicitado');
     }
 
     /**

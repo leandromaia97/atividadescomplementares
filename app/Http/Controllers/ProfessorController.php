@@ -7,6 +7,7 @@ use App\Model\Certificados;
 use Illuminate\Support\Facades\DB;
 use Validation;
 use Storage;
+use Illuminate\Support\Facades\Auth;
 
 class ProfessorController extends Controller
 {
@@ -18,6 +19,7 @@ class ProfessorController extends Controller
     public function index()
     {
         $resultado = $this->mostrarCertificado();
+        //dd($resultado);
         return view ('professor.home', compact('resultado'));
     }
 
@@ -59,8 +61,7 @@ class ProfessorController extends Controller
      */
     public function mostrarCertificado()
     {
-        $exibir = DB::table('certificados')->SELECT('nome_certificado', 'tipo', 'inicio',
-        'termino', 'carga_horaria', 'total_horas_complementares', 'minimo_horas_complementares')->get();
+        $exibir = DB::table('certificados')->get();
 
         return $exibir;
     }
@@ -68,10 +69,10 @@ class ProfessorController extends Controller
     /* Função para fazer o download do certificado */
     public function download($id)
     {
-        $id_user = Auth::user()->id;
-        $arquivo = Certificados::where('user_id', 1)->where('certificados_id')->first();
+        //$id_user = Auth::user()->id;
+        $arquivo = Certificados::where('user_id', 1)->where('certificados_id', $id)->first();
 
-        //dd($arquivo);
+       //dd($arquivo);
 
         if(isset($arquivo)) {
             $nome_certificado = $arquivo->nome_certificado;

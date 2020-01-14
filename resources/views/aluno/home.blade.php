@@ -1,8 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-0"></div>
+<div class="container-fluid">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
@@ -42,9 +40,11 @@
                                     <td><i class="far fa-clock"></i> {{$certificado->carga_horaria}}<span>h</span></td>
                                     <td></td>
                                     <td>
-                                        <button type="button" class="btn btn-warning mb-1" data-toggle="modal" data-target="#editarcertificado">Editar</button>
-                                        <button type="button" class="btn btn-danger mb-1" data-toggle="modal" data-target="#excluircertificado">Excluir</button>
-                                        <button type="button" class="btn btn-success mb-1">Baixar</button>
+                                        <div class="btn-group-horizontal">
+                                            <button type="button" id="btn_editar" class="btn btn-warning" data-toggle="modal" data-target="#editarcertificado">Editar</button>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#excluircertificado">Excluir</button>
+                                            <a href="{{ route('BaixarCertificado', $certificado->certificados_id) }}" role="button" class="btn btn-success">Baixar</a>
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -95,23 +95,20 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form>                           
                             <div class="form-group col-md-12">
                                 <label for="editar_tipo">Tipo</label>
                                 <select class="form-control" id="editar_tipo">
-                                    <option selected>Selecionar...</option>
-                                    <option value="Declaração de participação em eventos">Declaração de participação em eventos</option>
-                                    <option value="Certificado de conclusão de curso de capacitação">Certificado de conclusão de curso de capacitação</option>
-                                    <option value="Declaração de participação em amostra cultural">Declaração de participação em amostra cultural</option>
-                                    <option value=""></option>
-                                    <option value=""></option>
+                                    <option value="Declaração de Participação em Eventos">Declaração de Participação em Eventos</option>
+                                    <option value="Certificado de Conclusão de Curso de Capacitação">Certificado de Conclusão de Curso de Capacitação</option>
+                                    <option value="Declaração de Participação em Amostra Cultural">Declaração de Participação em Amostra Cultural</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-12">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label for="editar_inicio">Ínicio</label>
-                                        <input type="date" class="form-control @error('inicio') is-invalid @enderror" id="editar_inicio" name="inicio" placeholder="DD/MM/AAAA">
+                                        <input type="date" class="form-control @error('inicio') is-invalid @enderror" id="editar_inicio" name="inicio" value="">
                                         @error('inicio')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -120,7 +117,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label for="editar_termino">Término</label>
-                                        <input type="date" class="form-control @error('termino') is-invalid @enderror" id="editar_termino" name="termino" placeholder="DD/MM/AAAA">
+                                        <input type="date" class="form-control @error('termino') is-invalid @enderror" id="editar_termino" name="termino" value="">
                                         @error('termino')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -132,12 +129,13 @@
                             <div class="form-group col-md-4 col-sm-5">
                                 <label for="editar_cargahoraria">Carga Horária</label>
                                 <div class="input-group">
-                                    <input type="number" id="editar_cargahoraria" name="cargahoraria" class="form-control" placeholder="00" aria-label="Carga Horária" aria-describedby="cargahoraria">
+                                    <input type="number" id="editar_cargahoraria" name="cargahoraria" class="form-control" value="">
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="cargahoraria">h</span>
                                     </div>
                                 </div>
-                            </div>                        
+                            </div>
+                                                   
                         </form>
                     </div>
                     <div class="modal-footer">
