@@ -13,7 +13,7 @@
                         </form>
                     </nav>
 
-                    <div class="table-responsive">
+                    <div class="table-responsive" id="datatable">
                         <table class="table table-hover border">
                             <thead>
                                 <tr>
@@ -41,7 +41,7 @@
                                     <td></td>
                                     <td>
                                         <div class="btn-group-horizontal">
-                                            <button type="button" id="btn_editar" class="btn btn-warning" data-toggle="modal" data-target="#editarcertificado">Editar</button>
+                                            <button type="button" id="btn_editar" class="btn btn-warning edit" data-toggle="modal" data-target="#editarcertificado">Editar</button>
                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#excluircertificado">Excluir</button>
                                             <a href="{{ route('BaixarCertificado', $certificado->certificados_id) }}" role="button" class="btn btn-success">Baixar</a>
                                         </div>
@@ -95,7 +95,10 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>                           
+                        <form method="POST" action="{{ route('EditarCertificado') }}" id="formEditar">
+                        @csrf
+                        {{ method_field('PUT') }}
+
                             <div class="form-group col-md-12">
                                 <label for="editar_tipo">Tipo</label>
                                 <select class="form-control" id="editar_tipo">
@@ -135,12 +138,11 @@
                                     </div>
                                 </div>
                             </div>
-                                                   
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                <button type="submit" class="btn btn-primary">Salvar</button>
+                            </div>                                
                         </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-primary">Salvar</button>
                     </div>
                 </div>
             </div>
@@ -178,7 +180,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" action="{{route('InserirCertificado')}}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('InserirCertificado') }}" enctype="multipart/form-data">
                         @csrf
                             <div class="form-group col-md-12">
                                 <label for="arquivo">Clique no botão "<b>Escolher arquivo</b>" para inserir seu Certificado</label>

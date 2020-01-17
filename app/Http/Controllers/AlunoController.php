@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use App\Model\Certificados;
 use Illuminate\Support\Facades\DB;
@@ -130,7 +131,28 @@ class AlunoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'tipo' => 'required',
+            'inicio' => 'required',
+            'termino' => 'required',
+            'cargahoraria' => 'required',
+        ]);
+
+        $msg = "Não foi possível editar o certificado. Por favor tente novamente";
+
+        if($request->isValid()) {
+
+            $post = Certificados::findOrFail($id);
+            $post->tipo = $request->tipo;
+            $post->inicio = $request->inicio;
+            $post->termino = $request->termino;
+            $post->carga_horaria = $request->cargahoraria;
+
+            $post->save();
+            return response()->json($post);
+        }
+
+        return redirect()->back()->with('mensagem',$msg);
     }
 
     /**
@@ -143,4 +165,11 @@ class AlunoController extends Controller
     {
         //
     }
+
+    public function ajaxRequest(){
+        if($request->ajax()){
+            $consulta = DB::table('certificados')->SELECT('tipo', 'inicio', 'termino', 'carga_horaria')->get();
+        }
+    }
+
 }
