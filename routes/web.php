@@ -38,4 +38,4 @@ Route::get('/arquivo/download/{id}', 'ProfessorController@download')->name('Down
 Route::get('/arquivo/download_aluno/{id}', 'AlunoController@download')->name('BaixarCertificado');
 
 //Rotas Ajax
-Route::get('ajaxRequest', 'AlunoController@ajaxRequest')->name('AjaxRequest');
+Route::get('/listadados/{id}', 'AlunoController@listaDados')->name('ListaDados');

@@ -14,7 +14,7 @@
     <script src="{{ asset('/js/jquery.mask.js') }}" defer></script>
     <script src="{{ asset('/js/jquery.mask.min.js') }}" defer></script>
     <script src="{{ asset('/js/mascara.js') }}" defer></script>
-    <script src="{{ asset('/js/lista_dados.js') }}" defer></script>
+    <script src="{{ asset('/js/lista_dados.js') }}" defer></script>    
     <script src="{{ asset('/fontawesome/js/all.js') }}" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
@@ -101,5 +101,6 @@
         </footer>
         <!-- Footer -->
     </div>
+    
 </body>
 </html>

@@ -41,7 +41,7 @@
                                     <td></td>
                                     <td>
                                         <div class="btn-group-horizontal">
-                                            <button type="button" id="btn_editar" class="btn btn-warning edit" data-toggle="modal" data-target="#editarcertificado">Editar</button>
+                                            <a role="button" class="btn btn-warning" onclick="enviaDados({{$certificado->certificados_id}})">Editar</a>
                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#excluircertificado">Excluir</button>
                                             <a href="{{ route('BaixarCertificado', $certificado->certificados_id) }}" role="button" class="btn btn-success">Baixar</a>
                                         </div>
@@ -68,7 +68,7 @@
                         </div>
                         @endif
                         @if(Session('mensagem'))
-                        <div class="alert alert-success">
+                        <div class="alert alert-success text-center">
                             {{Session('mensagem')}}
                         </div>
                         @endif
@@ -98,10 +98,10 @@
                         <form method="POST" action="{{ route('EditarCertificado') }}" id="formEditar">
                         @csrf
                         {{ method_field('PUT') }}
-
+                            <input type="hidden" name="certificados_id" value="" id="id">
                             <div class="form-group col-md-12">
                                 <label for="editar_tipo">Tipo</label>
-                                <select class="form-control" id="editar_tipo">
+                                <select class="form-control" name="tipo" id="editar_tipo">
                                     <option value="Declaração de Participação em Eventos">Declaração de Participação em Eventos</option>
                                     <option value="Certificado de Conclusão de Curso de Capacitação">Certificado de Conclusão de Curso de Capacitação</option>
                                     <option value="Declaração de Participação em Amostra Cultural">Declaração de Participação em Amostra Cultural</option>
@@ -251,4 +251,6 @@
             </div>
         </div>
 </div>
+
+
 @endsection

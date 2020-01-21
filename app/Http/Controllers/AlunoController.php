@@ -89,9 +89,15 @@ class AlunoController extends Controller
     public function mostrarCertificado()
     {
         $exibir = DB::table('certificados')->get();
-
         return $exibir;
 
+    }
+
+    /* Função para mostrar detalhes dos certificados para serem editados */
+    public function listaDados($id)
+    {
+        $consulta = DB::table('certificados')->SELECT('certificados_id', 'tipo', 'inicio', 'termino', 'carga_horaria')->where('certificados_id', $id)->first();
+        return response()->json($consulta);
     }
 
     /* Função para fazer o download do certificado */
@@ -129,9 +135,10 @@ class AlunoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $request->validate([
+            'certificados_id' => 'required',
             'tipo' => 'required',
             'inicio' => 'required',
             'termino' => 'required',
@@ -140,19 +147,19 @@ class AlunoController extends Controller
 
         $msg = "Não foi possível editar o certificado. Por favor tente novamente";
 
-        if($request->isValid()) {
-
-            $post = Certificados::findOrFail($id);
+            $post = Certificados::findOrFail($request->certificados_id);
             $post->tipo = $request->tipo;
             $post->inicio = $request->inicio;
             $post->termino = $request->termino;
             $post->carga_horaria = $request->cargahoraria;
-
             $post->save();
-            return response()->json($post);
-        }
 
-        return redirect()->back()->with('mensagem',$msg);
+            //dd($post);
+            
+            if($post){
+                return redirect('/aluno')->with('mensagem','Dados alterados com sucesso!');
+            }
+        return redirect()->back()->with('mensagem', $msg);
     }
 
     /**
@@ -165,11 +172,4 @@ class AlunoController extends Controller
     {
         //
     }
-
-    public function ajaxRequest(){
-        if($request->ajax()){
-            $consulta = DB::table('certificados')->SELECT('tipo', 'inicio', 'termino', 'carga_horaria')->get();
-        }
-    }
-
 }

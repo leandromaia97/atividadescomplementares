@@ -1,21 +1,18 @@
-$(document).ready(function() {
-    var table = $('#datatable').DataTable();
-
-    table.on('click,', '.edit', function() {
-        $tr = $(this).closest('tr');
-        if ($($tr).hasClass('child')) {
-            $tr = $tr.prev('.parent');
-        }
-
-        var data = table.row($tr).data();
-        console.log(data);
-        $('#tipo').val(data[1]);
-        $('#inicio').val(data[2]);
-        $('#termino').val(data[3]);
-        $('#cargahoraria').val(data[4]);
-
-        $('#formEditar').attr('action', 'editar_certificado'+data[0]);
-        $('#editarcertificado').modal('show');
-
-    });
-});
+function enviaDados(id){
+    
+    $.ajax({
+        url: "/listadados/"+id
+      })
+      .done(function(data) {
+        //console.log(data.carga_horaria);
+        $("#editarcertificado").modal({
+          show: true
+        });
+        $('#id').val(data.certificados_id);
+        $('#editar_tipo').val(data.tipo);
+        $('#editar_inicio').val(data.inicio);
+        $('#editar_termino').val(data.termino);
+        $('#editar_cargahoraria').val(data.carga_horaria);
+      }, 
+    );
+}
