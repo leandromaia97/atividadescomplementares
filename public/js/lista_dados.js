@@ -8,7 +8,7 @@ function enviaDados(id){
         $("#editarcertificado").modal({
           show: true
         });
-        $('#id').val(data.certificados_id);
+        $('#id').val(data.id_certificado);
         $('#editar_tipo').val(data.tipo);
         $('#editar_inicio').val(data.inicio);
         $('#editar_termino').val(data.termino);

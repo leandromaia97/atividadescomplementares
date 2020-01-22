@@ -41,9 +41,9 @@
                                     <td></td>
                                     <td>
                                         <div class="btn-group-horizontal">
-                                            <a role="button" class="btn btn-warning" onclick="enviaDados({{$certificado->certificados_id}})">Editar</a>
+                                            <a role="button" class="btn btn-warning" onclick="enviaDados({{$certificado->id_certificado}})">Editar</a>
                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#excluircertificado">Excluir</button>
-                                            <a href="{{ route('BaixarCertificado', $certificado->certificados_id) }}" role="button" class="btn btn-success">Baixar</a>
+                                            <a href="{{ route('BaixarCertificado', $certificado->id_certificado) }}" role="button" class="btn btn-success">Baixar</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -98,7 +98,7 @@
                         <form method="POST" action="{{ route('EditarCertificado') }}" id="formEditar">
                         @csrf
                         {{ method_field('PUT') }}
-                            <input type="hidden" name="certificados_id" value="" id="id">
+                            <input type="hidden" name="id_certificado" value="" id="id">
                             <div class="form-group col-md-12">
                                 <label for="editar_tipo">Tipo</label>
                                 <select class="form-control" name="tipo" id="editar_tipo">

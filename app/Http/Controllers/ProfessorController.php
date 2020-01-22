@@ -70,7 +70,7 @@ class ProfessorController extends Controller
     public function download($id)
     {
         //$id_user = Auth::user()->id;
-        $arquivo = Certificados::where('user_id', 1)->where('certificados_id', $id)->first();
+        $arquivo = Certificados::where('user_id', 1)->where('id_certificado', $id)->first();
 
        //dd($arquivo);
 

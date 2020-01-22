@@ -96,7 +96,7 @@ class AlunoController extends Controller
     /* Função para mostrar detalhes dos certificados para serem editados */
     public function listaDados($id)
     {
-        $consulta = DB::table('certificados')->SELECT('certificados_id', 'tipo', 'inicio', 'termino', 'carga_horaria')->where('certificados_id', $id)->first();
+        $consulta = DB::table('certificados')->SELECT('id_certificado', 'tipo', 'inicio', 'termino', 'carga_horaria')->where('id_certificado', $id)->first();
         return response()->json($consulta);
     }
 
@@ -104,7 +104,7 @@ class AlunoController extends Controller
     public function download($id)
     {
         //$id_user = Auth::user()->id;
-        $arquivo = Certificados::where('user_id', 1)->where('certificados_id', $id)->first();
+        $arquivo = Certificados::where('user_id', 1)->where('id_certificado', $id)->first();
 
        //dd($arquivo);
 
@@ -138,7 +138,7 @@ class AlunoController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'certificados_id' => 'required',
+            'id_certificado' => 'required',
             'tipo' => 'required',
             'inicio' => 'required',
             'termino' => 'required',
@@ -147,7 +147,7 @@ class AlunoController extends Controller
 
         $msg = "Não foi possível editar o certificado. Por favor tente novamente";
 
-            $post = Certificados::findOrFail($request->certificados_id);
+            $post = Certificados::findOrFail($request->id_certificado);
             $post->tipo = $request->tipo;
             $post->inicio = $request->inicio;
             $post->termino = $request->termino;
