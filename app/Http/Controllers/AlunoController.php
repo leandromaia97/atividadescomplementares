@@ -88,7 +88,8 @@ class AlunoController extends Controller
     /* Função para mostrar os certificados o total e o minino de horas complementares na tela para o aluno */
     public function mostrarCertificado()
     {
-        $exibir = DB::table('certificados')->get();
+        $exibir = Certificados::all();
+        //dd($exibir);
         return $exibir;
 
     }

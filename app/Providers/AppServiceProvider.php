@@ -25,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Carbon::setLocale(LC_TIME, 'pt-br');
+
         $year = Carbon::now()->format('Y');
         
         View::share('year', $year);

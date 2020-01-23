@@ -16,3 +16,21 @@ function enviaDados(id){
       }, 
     );
 }
+
+function verDados(id){
+    $.ajax({
+      url: "/certificado/detalhes/"+id
+    })
+    .done(function(data) {
+      //console.log(data);
+      $("#avaliarcertificado").modal({
+        show:true
+      });
+      $("#id").val(data.id_certificado);
+      $("#tipo").val(data.tipo);
+      $("#inicio").val(data.inicio);
+      $("#termino").val(data.termino);
+      $("#cargahoraria").val(data.carga_horaria);
+    },
+  );
+}

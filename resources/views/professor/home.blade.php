@@ -1,7 +1,7 @@
 <!-- View do Professor -->
 @extends('layouts.app')
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -39,7 +39,7 @@
                                     <td></td>
                                     <td>
                                         <a href="{{ route('DownloadCertificado', $certificado->id_certificado) }}" role="button" class="btn btn-primary">Baixar</a>
-                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#avaliarcertificado">Avaliar</button>
+                                        <button class="btn btn-success" type="button" onclick="verDados( {{$certificado->id_certificado}} )">Avaliar</button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -63,15 +63,25 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form method="POST" action="{{ route('AvaliarCertificado') }}">
+                    @csrf
+                    {{ method_field('PUT') }}
                         <div class="form-group col-md-12">
                             <label for="tipo">Tipo</label>
-                            <input type="text" class="form-control" id="tipo" name="tipo" placeholder="tipo" readonly>
+                            <input type="text" class="form-control" id="tipo" name="tipo" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inicio">Ínicio</label>
+                            <input type="text" class="form-control" id="inicio" name="inicio" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="termino">Término</label>
+                            <input type="text" class="form-control" id="termino" name="termino" readonly>
                         </div>
                         <div class="form-group col-md-4 col-sm-5">
                             <label for="cargahoraria">Carga Horária</label>
                             <div class="input-group">
-                                <input type="text" id="cargahoraria" name="cargahoraria" class="form-control" placeholder="00" aria-label="Carga Horária" aria-describedby="cargahoraria" readonly>
+                                <input type="text" id="cargahoraria" name="cargahoraria" class="form-control" readonly>
                                 <div class="input-group-append">
                                     <span class="input-group-text" id="cargahoraria">h</span>
                                 </div>
