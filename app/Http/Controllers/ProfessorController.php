@@ -61,14 +61,13 @@ class ProfessorController extends Controller
      */
     public function mostrarCertificado()
     {
-        $exibir = DB::table('certificados')->get();
-
+        $exibir = Certificados::all();
         return $exibir;
     }
 
     public function verDados($id)
     {
-        $consulta = DB::table('certificados')->SELECT('id_certificado', 'tipo', 'inicio', 'termino', 'carga_horaria')->where('id_certificado', $id)->first();
+        $consulta = Certificados::all('id_certificado', 'tipo', 'inicio', 'termino', 'carga_horaria')->where('id_certificado', $id)->first();
         return response()->json($consulta);
     }
 
@@ -95,6 +94,7 @@ class ProfessorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function edit($id)
     {
         //
@@ -109,7 +109,24 @@ class ProfessorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'situacao' => 'required',
+            'justificativa' => 'required',
+        ]);
+
+        $msg = "Não foi possível avaliar o certificado. Por favor tente novamente";
+
+            $post = Avaliacoes::findOrFail($request->certificado_id);
+            $post->situacao = $request->situacao;
+            $post->justificativa = $request->justificativa;
+            $post->save();
+
+            //dd($post);
+            
+            if($post){
+                return redirect('/professor')->with('mensagem','Certificado avaliado com sucesso!');
+            }
+        return redirect()->back()->with('mensagem', $msg);
     }
 
     /**

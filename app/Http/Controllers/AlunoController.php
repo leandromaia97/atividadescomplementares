@@ -98,7 +98,7 @@ class AlunoController extends Controller
     public function listaDados($id)
     {
         $consulta = DB::table('certificados')->SELECT('id_certificado', 'tipo', 'inicio', 'termino', 'carga_horaria')->where('id_certificado', $id)->first();
-        return response()->json($consulta);
+        return response()->json($consulta);                    
     }
 
     /* Função para fazer o download do certificado */

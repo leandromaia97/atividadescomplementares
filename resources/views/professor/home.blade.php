@@ -90,9 +90,9 @@
                         <div class="form-group col-md-6">
                             <label for="situacao">Situação</label>
                             <select id="situacao" class="form-control" name="situacao">
+                                <option>Selecionar...</option>
                                 <option value="Aprovado">Aprovado</option>
                                 <option value="Reprovado">Reprovado</option>
-                                <option value="Em análise">Em análise</option>
                             </select>
                         </div>
                         <div class="form-group col-md-12">
@@ -120,8 +120,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="" action="">
+                    <form method="POST" action="">
                     @csrf
+                        <input type="hidden" name="certificado_id" id="certificado_id">
                         <div class="form-group col-md-11">
                             <div class="form-inline">
                                 <input class="form-control mr-1" type="search" placeholder="Pesquisar" aria-label="Search">

@@ -11,8 +11,7 @@ class Certificados extends Model
                             'total_horas_complementares', 'minimo_horas_complementares'];
     
     protected $table = 'certificados';
-
-    
+ 
     public function getInicioAttribute($value)
     {
         return date('d/m/Y', strtotime($this->attributes['inicio']));

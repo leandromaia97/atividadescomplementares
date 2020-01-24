@@ -14,10 +14,13 @@ class CreateAvaliacoesTable extends Migration
     public function up()
     {
         Schema::create('avaliacoes', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('nome_aluno');
-            $table->string('status');
+            $table->bigIncrements('id_avaliacao');
+            $table->integer('user_id');
+            $table->integer('certificado_id');
+            $table->string('situacao');
             $table->longText('justificativa');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('certificado_id')->references('id_certificado')->on('certificados');
             $table->timestamps();
         });
     }
