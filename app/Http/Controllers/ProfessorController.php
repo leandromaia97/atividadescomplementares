@@ -121,7 +121,7 @@ class ProfessorController extends Controller
             $post->justificativa = $request->justificativa;
             $post->save();
 
-            //dd($post);
+            dd($post);
             
             if($post){
                 return redirect('/professor')->with('mensagem','Certificado avaliado com sucesso!');

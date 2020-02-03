@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('content')
 <div class="container-fluid">
-        <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
 
@@ -74,14 +73,12 @@
                         @endif
                     </div>
 
-                    <div class="mx-auto">
+                    <div>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inserircertificado">Inserir Certificado</button>
                     </div>
 
                 </div>
             </div>
-        </div>
-        <div class="col-md-0"></div>
     </div>
 
     <!-- Modal Editar Certificado -->
@@ -183,7 +180,7 @@
                         <form method="POST" action="{{ route('InserirCertificado') }}" enctype="multipart/form-data">
                         @csrf
                             <div class="form-group col-md-12">
-                                <label for="arquivo">Clique no botão "<b>Escolher arquivo</b>" para inserir seu Certificado</label>
+                                <label for="arquivo">Clique no botão "<b>Escolher Arquivo</b>" para inserir seu Certificado</label>
                                 <input type="file" class="form-control-file @error('arquivo') is-invalid @enderror" id="arquivo" name="arquivo">
                                 @error('arquivo')
                                 <span class="invalid-feedback" role="alert">

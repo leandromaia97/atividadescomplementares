@@ -70,20 +70,22 @@
                             <label for="tipo">Tipo</label>
                             <input type="text" class="form-control" id="tipo" name="tipo" readonly>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="inicio">Ínicio</label>
-                            <input type="text" class="form-control" id="inicio" name="inicio" readonly>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="termino">Término</label>
-                            <input type="text" class="form-control" id="termino" name="termino" readonly>
-                        </div>
-                        <div class="form-group col-md-4 col-sm-5">
-                            <label for="cargahoraria">Carga Horária</label>
-                            <div class="input-group">
-                                <input type="text" id="cargahoraria" name="cargahoraria" class="form-control" readonly>
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="cargahoraria">h</span>
+                        <div class="form-group col-md-12 row">
+                            <div class="form-group col-md-4">
+                                <label for="inicio">Ínicio</label>
+                                <input type="text" class="form-control" id="inicio" name="inicio" readonly>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="termino">Término</label>
+                                <input type="text" class="form-control" id="termino" name="termino" readonly>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="cargahoraria">Carga Horária</label>
+                                <div class="input-group">
+                                    <input type="text" id="cargahoraria" name="cargahoraria" class="form-control col-md-6" readonly>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="cargahoraria">h</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -134,24 +136,24 @@
                             <input type="text" class="form-control" id="nomealuno" name="nomealuno" placeholder="nome do aluno" readonly>
                         </div>
                         <div class="col-md-12">
-                            <label for="totalhoras">Total de Horas Complementares</label>
+                            <label for="minimohoras">Minimo de Horas Complementares Para Aprovação</label>
                         </div>
-                        <div class="form-group col-md-3 col-sm-5">
+                        <div class="form-group col-md-4 col-sm-5">
                             <div class="input-group">
-                                <input type="text" id="totalhoras" name="totalhorascomplementares" class="form-control" placeholder="00" aria-label="Total Horas Complementares" aria-describedby="totalhorascomplementares" readonly>
+                                <input type="text" id="minimohoras" name="minimohorascomplementares" class="form-control col-md-5" placeholder="00" aria-label="Carga Horária" aria-describedby="cargahoraria" readonly>
                                 <div class="input-group-append">
-                                    <span class="input-group-text" id="totalhorascomplementares">h</span>
+                                    <span class="input-group-text" id="minimohoras">h</span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <label for="minimohoras">Minimo de horas para aprovação</label>
+                            <label for="totalhoras">Total de Horas Complementares</label>
                         </div>
-                        <div class="form-group col-md-3 col-sm-5">
+                        <div class="form-group col-md-4 col-sm-5">
                             <div class="input-group">
-                                <input type="text" id="minimohoras" name="minimohorascomplementares" class="form-control" placeholder="00" aria-label="Carga Horária" aria-describedby="cargahoraria" readonly>
+                                <input type="text" id="totalhoras" name="totalhorascomplementares" class="form-control col-md-5" placeholder="00" aria-label="Total Horas Complementares" aria-describedby="totalhorascomplementares" readonly>
                                 <div class="input-group-append">
-                                    <span class="input-group-text" id="minimohoras">h</span>
+                                    <span class="input-group-text" id="totalhorascomplementares">h</span>
                                 </div>
                             </div>
                         </div>
