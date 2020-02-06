@@ -25,7 +25,7 @@ Route::get('/professor', 'ProfessorController@index')->name('ProfessorHome');
 
 //Rotas para salvar dados
 Route::post('inserircertificado', 'AlunoController@store')->name('InserirCertificado');
-Route::post('avaliarcertificado', 'ProfessorController@store')->name('AvaliarCertificado');
+Route::match(['get', 'put'], 'avaliarcertificado', 'ProfessorController@update')->name('AvaliarCertificado');
 
 //Rotas para editar certificado
 Route::match(['get', 'post'], 'create', 'AlunoController@create');

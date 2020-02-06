@@ -26,7 +26,7 @@ function verDados(id){
       $("#avaliarcertificado").modal({
         show:true
       });
-      $("#id").val(data.id_certificado);
+      $("#id_certificado").val(data.id_certificado);
       $("#tipo").val(data.tipo);
       $("#inicio").val(data.inicio);
       $("#termino").val(data.termino);

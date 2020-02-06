@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use App\Model\Certificados;
+use App\Model\Avaliacoes;
 use Illuminate\Support\Facades\DB;
 use Validation;
 use Storage;
@@ -67,7 +69,7 @@ class ProfessorController extends Controller
 
     public function verDados($id)
     {
-        $consulta = Certificados::all('id_certificado', 'tipo', 'inicio', 'termino', 'carga_horaria')->where('id_certificado', $id)->first();
+        $consulta = DB::table('certificados')->SELECT('id_certificado', 'tipo', 'inicio', 'termino', 'carga_horaria')->where('id_certificado', $id)->first();
         return response()->json($consulta);
     }
 
@@ -107,9 +109,10 @@ class ProfessorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $request->validate([
+            'id_certificado' => 'required',
             'situacao' => 'required',
             'justificativa' => 'required',
         ]);

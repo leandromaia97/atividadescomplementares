@@ -66,18 +66,19 @@
                     <form method="POST" action="{{ route('AvaliarCertificado') }}">
                     @csrf
                     {{ method_field('PUT') }}
+                        <input type="hidden" name="id_certificado" value="" id="id_certificado">
                         <div class="form-group col-md-12">
                             <label for="tipo">Tipo</label>
                             <input type="text" class="form-control" id="tipo" name="tipo" readonly>
                         </div>
                         <div class="form-group col-md-12 row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label for="inicio">Ínicio</label>
-                                <input type="text" class="form-control" id="inicio" name="inicio" readonly>
+                                <input type="date" class="form-control" id="inicio" name="inicio" readonly>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label for="termino">Término</label>
-                                <input type="text" class="form-control" id="termino" name="termino" readonly>
+                                <input type="date" class="form-control" id="termino" name="termino" readonly>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="cargahoraria">Carga Horária</label>
@@ -100,12 +101,12 @@
                         <div class="form-group col-md-12">
                             <label for="justificativa">Justificativa</label>
                             <textarea class="form-control" id="justificativa" name="justificativa" rows="3" placeholder="Escreva aqui sua justificativa para a situação do certificado do(a) aluno(a)."></textarea>
-                        </div>                 
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            <button type="submit" class="btn btn-success">Salvar</button>
+                        </div>                
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-success">Salvar</button>
                 </div>
             </div>
         </div>
