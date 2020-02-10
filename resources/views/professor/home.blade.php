@@ -39,13 +39,23 @@
                                     <td></td>
                                     <td>
                                         <a href="{{ route('DownloadCertificado', $certificado->id_certificado) }}" role="button" class="btn btn-primary">Baixar</a>
-                                        <button class="btn btn-success" type="button" onclick="verDados( {{$certificado->id_certificado}} )">Avaliar</button>
+                                        <button class="btn btn-success" type="button" id="abrir_modal" onclick="verDados( {{$certificado->id_certificado}} )">Avaliar</button>
                                     </td>
                                 </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
+                    @if(Session('sucesso'))
+                        <div class="alert alert-success text-center">
+                            {{Session('sucesso')}}
+                        </div>
+                    @endif
+                    @if(Session('erro'))
+                        <div class="alert alert-danger">
+                            {{Session('erro')}}
+                        </div>
+                    @endif
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#consultaraluno">Consultar Aluno</button>
                 </div>
             </div>
@@ -53,8 +63,8 @@
     </div>
 
     <!-- Modal Avaliar Certificado-->
-    <div class="modal fade" id="avaliarcertificado" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal fade" id="" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">  
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalCenterTitle">Avaliar Certificado</h5>
@@ -63,10 +73,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ route('AvaliarCertificado') }}">
+                    <!-- <form method="POST" action="{{ url('avaliar_certificado') }}">
                     @csrf
-                    {{ method_field('PUT') }}
-                        <input type="hidden" name="id_certificado" value="" id="id_certificado">
+                        <input type="hidden" name="id_certificado" id="id_certificado">
                         <div class="form-group col-md-12">
                             <label for="tipo">Tipo</label>
                             <input type="text" class="form-control" id="tipo" name="tipo" readonly>
@@ -92,22 +101,110 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="situacao">Situação</label>
-                            <select id="situacao" class="form-control" name="situacao">
+                            <select id="situacao" class="form-control @error('situacao') is-invalid @enderror" name="situacao">
                                 <option>Selecionar...</option>
                                 <option value="Aprovado">Aprovado</option>
                                 <option value="Reprovado">Reprovado</option>
                             </select>
+                            @error('situacao')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="form-group col-md-12">
                             <label for="justificativa">Justificativa</label>
-                            <textarea class="form-control" id="justificativa" name="justificativa" rows="3" placeholder="Escreva aqui sua justificativa para a situação do certificado do(a) aluno(a)."></textarea>
+                            <textarea class="form-control @error('justificativa') is-invalid @enderror" id="justificativa" name="justificativa" rows="3" placeholder="Escreva aqui sua justificativa para a situação do certificado do(a) aluno(a)."></textarea>
+                            @error('justificativa')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-success">Salvar</button>
+                            <button type="button" class="btn btn-success" id="ajaxSubmit">Salvar</button>
                         </div>                
-                    </form>
+                    </form> -->
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Teste -->
+    <div class="modal fade" id="avaliarcertificado" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalScrollableTitle">Avaliar Certificado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ url('avaliar_certificado') }}">
+                    @csrf
+                    <input type="hidden" name="id_certificado" id="id_certificado">
+                    <div class="form-group col-md-12">
+                        <label for="tipo">Tipo</label>
+                        <input type="text" class="form-control" id="tipo" name="tipo" readonly>
+                    </div>
+                    <div class="form-group col-md-12 row">
+                        <div class="form-group col-md-6">
+                            <label for="inicio">Ínicio</label>
+                            <input type="date" class="form-control" id="inicio" name="inicio" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="termino">Término</label>
+                            <input type="date" class="form-control" id="termino" name="termino" readonly>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="cargahoraria">Carga Horária</label>
+                            <div class="input-group">
+                                <input type="text" id="cargahoraria" name="cargahoraria" class="form-control col-md-6" readonly>
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="cargahoraria">h</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="situacao">Situação</label>
+                        <select id="situacao" class="form-control @error('situacao') is-invalid @enderror" name="situacao">
+                            <option>Selecionar...</option>
+                            <option value="Aprovado">Aprovado</option>
+                            <option value="Reprovado">Reprovado</option>
+                        </select>
+                        @error('situacao')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="justificativa">Justificativa</label>
+                        <textarea class="form-control @error('justificativa') is-invalid @enderror" id="justificativa" name="justificativa" rows="3" placeholder="Escreva aqui sua justificativa para a situação do certificado do(a) aluno(a)."></textarea>
+                        @error('justificativa')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" id="salva_dados">Salvar</button>
+            </div>
             </div>
         </div>
     </div>

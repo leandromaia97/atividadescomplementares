@@ -43,7 +43,38 @@ class ProfessorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = \Validator::make($request->all(), [
+            'id_certificado' => 'required',
+            'situacao' => 'required',
+            'justificativa' => 'required',
+        ]);
+
+        if ($validator->fails())
+        {
+            return response()->json(['errors'=>$validator->errors()->all()]);
+        }
+
+        // $request->validate([
+        //     'id_certificado' => 'required',
+        //     'situacao' => 'required',
+        //     'justificativa' => 'required',
+        // ]);
+
+        $post = new Avaliacoes();
+        $post->certificado_id = $request->id_certificado;
+        $post->situacao = $request->situacao;
+        $post->justificativa = $request->justificativa;
+        $post->user_id = 1;
+        $post->save();
+
+        if($post){
+            return redirect('/professor')->with('sucesso','Certificado avaliado com sucesso!');
+        }else {
+            return redirect('/professor')->with('erro','Não foi possível avaliar o certificado. Por favor tente novamente');
+        }
+
+        //return redirect()->back()->with('mensagem', $msg);
+
     }
 
     /**
@@ -111,25 +142,7 @@ class ProfessorController extends Controller
      */
     public function update(Request $request)
     {
-        $request->validate([
-            'id_certificado' => 'required',
-            'situacao' => 'required',
-            'justificativa' => 'required',
-        ]);
-
-        $msg = "Não foi possível avaliar o certificado. Por favor tente novamente";
-
-            $post = Avaliacoes::findOrFail($request->certificado_id);
-            $post->situacao = $request->situacao;
-            $post->justificativa = $request->justificativa;
-            $post->save();
-
-            dd($post);
-            
-            if($post){
-                return redirect('/professor')->with('mensagem','Certificado avaliado com sucesso!');
-            }
-        return redirect()->back()->with('mensagem', $msg);
+        //
     }
 
     /**

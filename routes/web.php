@@ -25,14 +25,14 @@ Route::get('/professor', 'ProfessorController@index')->name('ProfessorHome');
 
 //Rotas para salvar dados
 Route::post('inserircertificado', 'AlunoController@store')->name('InserirCertificado');
-Route::match(['get', 'put'], 'avaliarcertificado', 'ProfessorController@update')->name('AvaliarCertificado');
+Route::post('avaliar-certificado', 'ProfessorController@store')->name('AvaliarCertificado');
 
 //Rotas para editar certificado
 Route::match(['get', 'post'], 'create', 'AlunoController@create');
 Route::match(['get', 'put'], 'editar_certificado', 'AlunoController@update')->name('EditarCertificado');
 
 //Excluir certificado
-Route::delete('aluno/certificado/excluir/{id}', 'AlunoController@delete');
+Route::delete('aluno/certificado/excluir', 'AlunoController@destroy')->name('ExcluirCertificado');
 
 //Rota para download dos certificados
 Route::get('/arquivo/download/{id}', 'ProfessorController@download')->name('DownloadCertificado');
@@ -41,3 +41,4 @@ Route::get('/arquivo/download_aluno/{id}', 'AlunoController@download')->name('Ba
 //Rotas Ajax
 Route::get('/listadados/{id}', 'AlunoController@listaDados')->name('ListaDados');
 Route::get('/certificado/detalhes/{id}', 'ProfessorController@verDados')->name('VerDados');
+Route::get('ajax/certificado/delete/{id}', 'AlunoController@ajaxCertificadoDelete')->name('ajaxCertificadoDelete');

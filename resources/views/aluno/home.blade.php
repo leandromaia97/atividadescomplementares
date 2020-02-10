@@ -37,11 +37,15 @@
                                     <td><i class="far fa-calendar-alt"></i> {{$certificado->inicio}}</td>
                                     <td><i class="far fa-calendar-alt"></i> {{$certificado->termino}}</td>
                                     <td><i class="far fa-clock"></i> {{$certificado->carga_horaria}}<span>h</span></td>
-                                    <td></td>
+                                    <td>
+                                        <div>Aprovado</div>
+                                        <div class="overflow-auto pre-scrollable" style="width: 10rem">
+                                        </div>
+                                    </td>
                                     <td>
                                         <div class="btn-group-horizontal">
-                                            <a role="button" class="btn btn-warning" onclick="enviaDados({{$certificado->id_certificado}})">Editar</a>
-                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#excluircertificado">Excluir</button>
+                                            <button type="button" class="btn btn-warning" onclick="enviaDados({{$certificado->id_certificado}})">Editar</button>
+                                            <button type="button" class="btn btn-danger" onclick="excluirCertificado({{$certificado->id_certificado}})">Excluir</button>
                                             <a href="{{ route('BaixarCertificado', $certificado->id_certificado) }}" role="button" class="btn btn-success">Baixar</a>
                                         </div>
                                     </td>
@@ -54,22 +58,22 @@
                     </div>
 
                     <div class="form-group col-md-12">
-                        <!-- <div id="donut_single" style="width: 900px; height: 500px;"></div> -->
+                        <div class="font-weight-bold">Minhas Horas Complementares</div>
                         <div>Total de Horas Complementares:</div>
-                        <div>Minimo para aprovação:</div>
+                        <div>Minimo de Horas para Aprovação:</div>
                         @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         @endif
                         @if(Session('mensagem'))
-                        <div class="alert alert-success text-center">
-                            {{Session('mensagem')}}
-                        </div>
+                            <div class="alert alert-success text-center">
+                                {{Session('mensagem')}}
+                            </div>
                         @endif
                     </div>
 
@@ -156,11 +160,18 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Tem certeza que deseja <b>excluir</b> este certificado?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                        <button type="button" class="btn btn-danger">Sim</button>
+                        <form method="POST" action="{{ route('ExcluirCertificado') }}" id="form_excluir">
+                            @csrf
+                            {{ method_field('DELETE') }}
+                            <input type="hidden" name="id_certificado_excluir" id="id_certificado_excluir">
+                            <div class="text-justify">Tem certeza que deseja <b>excluir</b> o certificado? 
+                                <input readonly class="form-control-plaintext col-md-6" name="nome_certificado" id="nome_certificado">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                <button type="submit" class="btn btn-danger">Sim</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -248,6 +259,4 @@
             </div>
         </div>
 </div>
-
-
 @endsection

@@ -66,7 +66,7 @@ class AlunoController extends Controller
             $post_certificado->user_id = 1;
 
             $post_certificado->save();
-            $msg = "O certificado foi enviado com sucesso";
+            $msg = "O certificado foi enviado com sucesso!";
 
         }
 
@@ -101,6 +101,12 @@ class AlunoController extends Controller
         return response()->json($consulta);                    
     }
 
+    public function ajaxCertificadoDelete($id)
+    {
+        $certificado_delete = DB::table('certificados')->SELECT('id_certificado', 'nome_certificado')->where('id_certificado', $id)->first();
+        return response()->json($certificado_delete);                    
+    }
+
     /* Função para fazer o download do certificado */
     public function download($id)
     {
@@ -113,9 +119,10 @@ class AlunoController extends Controller
             $nome_certificado = $arquivo->nome_certificado;
             $path = $arquivo->path_certificado;
             return response()->download('storage/' . $path, $nome_certificado);
+        }else{
+            return redirect()->back()->with('erro', 'Não foi possivel encontrar o certificado solicitado');
         }
 
-        return redirect()->back()->with('erro', 'Não foi possivel encontrar o certificado solicitado');
     }
 
     /**
@@ -158,7 +165,7 @@ class AlunoController extends Controller
             //dd($post);
             
             if($post){
-                return redirect('/aluno')->with('mensagem','Dados alterados com sucesso!');
+                return redirect('/aluno')->with('mensagem','As informações do certificado foram alteradas com sucesso!');
             }
         return redirect()->back()->with('mensagem', $msg);
     }
@@ -169,8 +176,23 @@ class AlunoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $request->validate([
+            'id_certificado_excluir' => 'required',
+            'nome_certificado' => 'required',
+        ]);
+
+        $post = $request->id_certificado_excluir;
+        $post = DB::table('certificados')->where('id_certificado', $post)->delete();
+        
+        if($post){
+            return redirect('/aluno')->with('mensagem', 'O certificado foi excluido com sucesso!');
+        }else{
+            return redirect('/aluno')->with('mensagem', 'Ocorreu um erro ao tentar excluir o certificado. Por favor tente novamente');
+        }
+        
+        
+
     }
 }

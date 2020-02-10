@@ -34,3 +34,18 @@ function verDados(id){
     },
   );
 }
+
+function excluirCertificado(id){
+  $.ajax({
+    url: "/ajax/certificado/delete/"+id
+  })
+  .done(function(data) {
+    //console.log(data);
+    $("#excluircertificado").modal({
+      show:true
+    });
+    $("#id_certificado_excluir").val(data.id_certificado);
+    $("#nome_certificado").val(data.nome_certificado);
+  },
+  );
+}
