@@ -70,9 +70,14 @@
                                 </ul>
                             </div>
                         @endif
-                        @if(Session('mensagem'))
+                        @if(Session('sucesso'))
                             <div class="alert alert-success text-center">
-                                {{Session('mensagem')}}
+                                {{Session('sucesso')}}
+                            </div>
+                        @endif
+                        @if(Session('erro'))
+                            <div class="alert alert-danger text-center">
+                                {{Session('erro')}}
                             </div>
                         @endif
                     </div>
@@ -202,7 +207,7 @@
                             <div class="form-group col-md-12">
                                 <label for="tipo">Tipo</label>
                                 <select class="form-control @error('tipo') is-invalid @enderror" name="tipo" id="tipo">
-                                    <option>Selecionar...</option>
+                                    <option disabled selected>Selecionar...</option>
                                     <option value="Declaração de Participação em Eventos">Declaração de Participação em Eventos</option>
                                     <option value="Certificado de Conclusão de Curso de Capacitação">Certificado de Conclusão de Curso de Capacitação</option>
                                     <option value="Declaração de Participação em Amostra Cultural">Declaração de Participação em Amostra Cultural</option>

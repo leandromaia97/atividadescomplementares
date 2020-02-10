@@ -49,8 +49,6 @@ class AlunoController extends Controller
             'cargahoraria' => 'required',
         ]);
 
-        $msg = "Não foi possível enviar o certificado. Por favor tente novamente";
-
         if($request->file('arquivo')->isValid()){
 
             $path_certificados = $request->file('arquivo')->store('certificados', 'public');
@@ -66,12 +64,13 @@ class AlunoController extends Controller
             $post_certificado->user_id = 1;
 
             $post_certificado->save();
-            $msg = "O certificado foi enviado com sucesso!";
 
+            if($post_certificado){
+                return redirect('/aluno')->with('sucesso', 'O certificado foi enviado com sucesso!');
+            }else{
+                return redirect('/aluno')->with('erro', 'Ocorreu um erro ao tentar enviar seu certificado. Por favor tente novamente');
+            }
         }
-
-        return redirect()->back()->with('mensagem',$msg);
-
     }
 
     /**
@@ -180,19 +179,16 @@ class AlunoController extends Controller
     {
         $request->validate([
             'id_certificado_excluir' => 'required',
-            'nome_certificado' => 'required',
         ]);
 
+        //$id_user = Auth::user()->id;
         $post = $request->id_certificado_excluir;
-        $post = DB::table('certificados')->where('id_certificado', $post)->delete();
+        $post = Certificados::where('user_id', 1)->where('id_certificado', $post)->delete();
         
         if($post){
-            return redirect('/aluno')->with('mensagem', 'O certificado foi excluido com sucesso!');
+            return redirect('/aluno')->with('sucesso', 'O certificado foi excluido com sucesso!');
         }else{
-            return redirect('/aluno')->with('mensagem', 'Ocorreu um erro ao tentar excluir o certificado. Por favor tente novamente');
-        }
-        
-        
-
+            return redirect('/aluno')->with('erro', 'Ocorreu um erro ao tentar excluir o certificado. Por favor tente novamente');
+        }   
     }
 }
