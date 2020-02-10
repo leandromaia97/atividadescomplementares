@@ -20,6 +20,9 @@ class AlunoController extends Controller
     {
         $resultado = $this->mostrarCertificado();
         return view ('aluno.home', compact('resultado'));
+
+        $soma = $this->calcularHorasComplementares();
+        return view ('aluno.home', compact('soma'));
     }
 
     /**
@@ -190,5 +193,18 @@ class AlunoController extends Controller
         }else{
             return redirect('/aluno')->with('erro', 'Ocorreu um erro ao tentar excluir o certificado. Por favor tente novamente');
         }   
+    }
+
+    /* Função para somar as horas de cada certificado e definir a quantidade de horas complementares
+    * que o aluno possui.
+    */
+    public function calcularHorasComplementares()
+    {
+        //$id_user = Auth::user()->id;
+        $user_id_certificado = Certificados::all('user_id');
+        $situacao = Certificados::all('situacao')->where('Aprovado');
+        
+        $soma = Certificados::where('user_id', 1)->where('situacao', $situacao)->sum('carga_horaria');
+        
     }
 }

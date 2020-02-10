@@ -59,8 +59,12 @@
 
                     <div class="form-group col-md-12">
                         <div class="font-weight-bold">Minhas Horas Complementares</div>
-                        <div>Total de Horas Complementares:</div>
+                        <div>Total de Horas Complementares:
+                        
+                        </div>
+
                         <div>Minimo de Horas para Aprovação:</div>
+
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
