@@ -8,7 +8,7 @@ class Certificados extends Model
 {
     protected $primaryKey = 'id_certificado';
     protected $fillable = ['path_certificado', 'nome_certificado', 'tipo', 'inicio', 'termino', 'carga_horaria',
-                            'total_horas_complementares', 'minimo_horas_complementares'];
+                            'total_horas_complementares', 'minimo_horas_complementares', 'user_id'];
     
     protected $table = 'certificados';
  

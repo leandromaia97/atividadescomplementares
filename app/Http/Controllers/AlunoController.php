@@ -155,7 +155,12 @@ class AlunoController extends Controller
             'cargahoraria' => 'required',
         ]);
 
-        $msg = "Não foi possível editar o certificado. Por favor tente novamente";
+        $id_user_auth = 1; //Auth::user()->id;
+        //dd($id_user_auth);
+        $id_user_certificado = Certificados::all('user_id');
+        dd($id_user_certificado);
+
+        if($id_user_auth == $id_user_certificado){
 
             $post = Certificados::findOrFail($request->id_certificado);
             $post->tipo = $request->tipo;
@@ -164,12 +169,23 @@ class AlunoController extends Controller
             $post->carga_horaria = $request->cargahoraria;
             $post->save();
 
-            //dd($post);
-            
-            if($post){
-                return redirect('/aluno')->with('mensagem','As informações do certificado foram alteradas com sucesso!');
-            }
-        return redirect()->back()->with('mensagem', $msg);
+        }else{
+            return redirect('/aluno')->with('erro','Você não tem permissão para editar este certificado');
+        }
+        // $post = Certificados::findOrFail($request->id_certificado);
+        // $post->tipo = $request->tipo;
+        // $post->inicio = $request->inicio;
+        // $post->termino = $request->termino;
+        // $post->carga_horaria = $request->cargahoraria;
+        // $post->save();
+
+        //dd($post);
+        
+        if($post){
+            return redirect('/aluno')->with('sucesso','As informações do certificado foram alteradas com sucesso!');
+        }else{
+            return redirect('/aluno')->with('erro','Não foi possível editar o certificado. Por favor tente novamente');
+        }
     }
 
     /**
@@ -186,7 +202,8 @@ class AlunoController extends Controller
 
         //$id_user = Auth::user()->id;
         $post = $request->id_certificado_excluir;
-        $post = Certificados::where('user_id', 1)->where('id_certificado', $post)->delete();
+        $post = Certificados::where('user_id', 1
+        )->where('id_certificado', $post)->delete();
         
         if($post){
             return redirect('/aluno')->with('sucesso', 'O certificado foi excluido com sucesso!');
