@@ -1,5 +1,5 @@
 function enviaDadosViewAluno(id){
-    
+
     $.ajax({
         url: "/aluno/certificado/detalhes/editar/"+id
       })
@@ -13,7 +13,7 @@ function enviaDadosViewAluno(id){
         $('#editar_inicio').val(data.inicio);
         $('#editar_termino').val(data.termino);
         $('#editar_cargahoraria').val(data.carga_horaria);
-      }, 
+      },
     );
 }
 
@@ -49,3 +49,15 @@ function excluirCertificado(id){
   },
   );
 }
+
+$(document).ready(function() {
+    $("#alert-success").fadeTo(10000, 500).slideUp(500, function() {
+        $("#alert-success").slideUp(500);
+    });
+});
+
+$(document).ready(function() {
+    $("#alert-danger").fadeTo(10000, 500).slideUp(500, function() {
+        $("#alert-danger").slideUp(500);
+    });
+});

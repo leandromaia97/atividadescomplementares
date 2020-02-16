@@ -17,7 +17,7 @@ class CreateAvaliacoesTable extends Migration
             $table->bigIncrements('id_avaliacao');
             $table->integer('user_id');
             $table->integer('certificado_id');
-            $table->string('situacao');
+            $table->string('avaliacao');
             $table->longText('justificativa');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('certificado_id')->references('id_certificado')->on('certificados');

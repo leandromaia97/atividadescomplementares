@@ -17,52 +17,70 @@
                         <table class="table table-hover border">
                             <thead>
                                 <tr>
+                                    <th scope="col">Data de Envio</th>
                                     <th scope="col">Certificado</th>
                                     <th scope="col">Tipo</th>
                                     <th scope="col">Ínicio</th>
                                     <th scope="col">Término</th>
                                     <th scope="col">Carga Horária</th>
-                                    <th scope="col">Situação</th>
+                                    <th scope="col">Avaliação</th>
                                     <th scope="col">Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if(empty($resultado))
-                                    <div class="alert alert-warning col-6 offset-3" role="alert">Você não enviou nenhum certificado ainda</div>
-                                @else
-                                
                                 @foreach($resultado as $certificado)
                                 <tr>
+                                    <td>{{$certificado->created_at}}</td>
                                     <td>{{$certificado->nome_certificado}}</td>
                                     <td>{{$certificado->tipo}}</td>
-                                    <td><i class="far fa-calendar-alt"></i> {{$certificado->inicio}}</td>
-                                    <td><i class="far fa-calendar-alt"></i> {{$certificado->termino}}</td>
-                                    <td><i class="far fa-clock"></i> {{$certificado->carga_horaria}}<span>h</span></td>
+                                    <td>{{$certificado->inicio}}</td>
+                                    <td>{{$certificado->termino}}</td>
+                                    <td>{{$certificado->carga_horaria}}<span>h</span></td>
                                     <td>
-                                        <div>Aprovado</div>
-                                        <div class="overflow-auto pre-scrollable" style="width: 10rem">
-                                        </div>
+                                        <div></div>
                                     </td>
                                     <td>
                                         <div class="btn-group-horizontal">
-                                            <button type="button" class="btn btn-warning" onclick="enviaDadosViewAluno({{$certificado->id_certificado}})">Editar</button>
-                                            <button type="button" class="btn btn-danger" onclick="excluirCertificado({{$certificado->id_certificado}})">Excluir</button>
-                                            <a href="{{ route('DownloadCertificado(Aluno)', $certificado->id_certificado) }}" role="button" class="btn btn-success">Baixar</a>
+                                            <a href="{{ route('DownloadCertificado(Aluno)', $certificado->id_certificado) }}" role="button" class="btn btn-success mb-1">Download</a>
+                                            <div class="d-flex">
+                                                <div class="dropdown mr-1">
+                                                  <button type="button" class="btn btn-primary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
+                                                    Opções
+                                                  </button>
+                                                  <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+                                                    <a class="dropdown-item" href="#" onclick="enviaDadosViewAluno({{$certificado->id_certificado}})">Editar</a>
+                                                    <a class="dropdown-item" href="#" onclick="excluirCertificado({{$certificado->id_certificado}})">Excluir</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Detalhes da Avaliação</a>
+                                                  </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
                                 @endforeach
-
-                                @endif
                             </tbody>
                         </table>
                     </div>
+                    @if($resultado->isEmpty())
+                        <div class="alert alert-warning text-center col-12" role="alert">Você não enviou nenhum certificado ainda</div>
+                    @else
+                    @endif
+
+                    @if(Session('sucesso'))
+                            <div class="alert alert-success text-center" id="alert-success">
+                            <i class="fas fa-check"></i> {{Session('sucesso')}}
+                            </div>
+                    @endif
+                    @if(Session('erro'))
+                        <div class="alert alert-danger text-center" id="alert-danger">
+                        <i class="fas fa-exclamation-triangle"></i> {{Session('erro')}}
+                        </div>
+                    @endif
 
                     <div class="form-group col-md-12">
                         <div class="font-weight-bold">Minhas Horas Complementares</div>
-                        <div>Total de Horas Complementares:
-                        
-                        </div>
+                        <div>Total de Horas Complementares:</div>
 
                         <div>Minimo de Horas para Aprovação:</div>
 
@@ -73,16 +91,6 @@
                                         <li>{{ $error }}</li>
                                     @endforeach
                                 </ul>
-                            </div>
-                        @endif
-                        @if(Session('sucesso'))
-                            <div class="alert alert-success text-center">
-                            <i class="fas fa-check"></i> {{Session('sucesso')}}
-                            </div>
-                        @endif
-                        @if(Session('erro'))
-                            <div class="alert alert-danger text-center">
-                            <i class="fas fa-exclamation-triangle"></i> {{Session('erro')}}
                             </div>
                         @endif
                     </div>
@@ -152,7 +160,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                 <button type="submit" class="btn btn-primary">Salvar</button>
-                            </div>                                
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -174,7 +182,7 @@
                             @csrf
                             {{ method_field('DELETE') }}
                             <input type="hidden" name="id_certificado_excluir" id="id_certificado_excluir">
-                            <div class="text-justify">Tem certeza que deseja <b>excluir</b> o certificado? 
+                            <div class="text-justify">Tem certeza que deseja <b>excluir</b> o certificado?
                                 <input readonly class="form-control-plaintext col-md-6" name="nome_certificado" id="nome_certificado">
                             </div>
                             <div class="modal-footer">
@@ -262,7 +270,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                 <button type="submit" class="btn btn-success">Salvar</button>
-                            </div>                       
+                            </div>
                         </form>
                     </div>
                 </div>

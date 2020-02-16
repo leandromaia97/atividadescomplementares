@@ -96,24 +96,24 @@ class AlunoController extends Controller
 
     }
 
-    /* Função para mostrar detalhes dos certificados para serem editados 
+    /* Função para mostrar detalhes dos certificados para serem editados
      * Envia o resultado da consulta para a função ajax "enviaDadosViewAluno" que esta no arquivo
      * "public/js/lista_dados.js"
     */
     public function editarDetalhesCertificado($id)
     {
         $consulta = DB::table('certificados')->SELECT('id_certificado', 'tipo', 'inicio', 'termino', 'carga_horaria')->where('id_certificado', $id)->first();
-        return response()->json($consulta);                    
+        return response()->json($consulta);
     }
 
-    /* Função para mostrar detalhes dos certificados para serem excluidos 
+    /* Função para mostrar detalhes dos certificados para serem excluidos
      * Envia o resultado da consulta para a função ajax "excluirCertificado" que esta no arquivo
      * "public/js/lista_dados.js"
     */
     public function ajaxCertificadoDelete($id)
     {
         $certificado_delete = DB::table('certificados')->SELECT('id_certificado', 'nome_certificado')->where('id_certificado', $id)->first();
-        return response()->json($certificado_delete);                    
+        return response()->json($certificado_delete);
     }
 
     /* Função para fazer o download do certificado */
@@ -129,7 +129,7 @@ class AlunoController extends Controller
             $path = $arquivo->path_certificado;
             return response()->download('storage/' . $path, $nome_certificado);
         }else{
-            return redirect()->back()->with('erro', 'Não foi possivel encontrar o certificado solicitado');
+            return redirect()->back()->with('erro', 'Não foi possivel encontrar o certificado solicitado. Por favor tente novamente');
         }
 
     }
@@ -164,7 +164,7 @@ class AlunoController extends Controller
 
         $id_user_auth = 1; //Auth::user()->id;
         //dd($id_user_auth);
-        $id_user_certificado = Certificados::all('user_id');
+        $id_user_certificado = Certificados::pluck('user_id')->first();
         //dd($id_user_certificado);
 
         if($id_user_auth == $id_user_certificado){
@@ -176,23 +176,12 @@ class AlunoController extends Controller
             $post->carga_horaria = $request->cargahoraria;
             $post->save();
 
+            return redirect('/aluno')->with('sucesso','As informações do certificado foram alteradas com sucesso');
+
         }else{
             return redirect('/aluno')->with('erro','Você não tem permissão para editar este certificado');
         }
-        // $post = Certificados::findOrFail($request->id_certificado);
-        // $post->tipo = $request->tipo;
-        // $post->inicio = $request->inicio;
-        // $post->termino = $request->termino;
-        // $post->carga_horaria = $request->cargahoraria;
-        // $post->save();
 
-        //dd($post);
-        
-        if($post){
-            return redirect('/aluno')->with('sucesso','As informações do certificado foram alteradas com sucesso');
-        }else{
-            return redirect('/aluno')->with('erro','Não foi possível editar o certificado. Por favor tente novamente');
-        }
     }
 
     /**
@@ -209,13 +198,13 @@ class AlunoController extends Controller
 
         //$id_user = Auth::user()->id;
         $post = $request->id_certificado_excluir;
-        $post = Certificados::where('user_id', 1)->where('id_certificado', $post)->delete();
-        
+        $post = Certificados::where('user_id', 2)->where('id_certificado', $post)->delete();
+
         if($post){
             return redirect('/aluno')->with('sucesso', 'O certificado foi excluido com sucesso');
         }else{
             return redirect('/aluno')->with('erro', 'Ocorreu um erro ao tentar excluir o certificado. Por favor tente novamente');
-        }   
+        }
     }
 
     /* Função para somar as horas de cada certificado e definir a quantidade de horas complementares
@@ -226,8 +215,8 @@ class AlunoController extends Controller
         //$id_user = Auth::user()->id;
         $user_id_certificado = Certificados::all('user_id');
         $situacao = Certificados::all('situacao')->where('Aprovado');
-        
+
         $soma = Certificados::where('user_id', 1)->where('situacao', $situacao)->sum('carga_horaria');
-        
+
     }
 }
