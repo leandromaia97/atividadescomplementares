@@ -38,8 +38,8 @@
                                     <td><i class="far fa-clock"></i> {{$certificado->carga_horaria}}<span>h</span></td>
                                     <td></td>
                                     <td>
-                                        <a href="{{ route('DownloadCertificado', $certificado->id_certificado) }}" role="button" class="btn btn-primary">Baixar</a>
-                                        <button class="btn btn-success" type="button" id="abrir_modal" onclick="verDados( {{$certificado->id_certificado}} )">Avaliar</button>
+                                        <a href="{{ route('DownloadCertificado(Professor)', $certificado->id_certificado) }}" role="button" class="btn btn-primary">Baixar</a>
+                                        <button class="btn btn-success" type="button" id="abrir_modal" onclick="enviaDadosViewProfessor({{$certificado->id_certificado}})">Avaliar</button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -141,7 +141,7 @@
     </div>
 
     <!-- Modal Teste -->
-    <div class="modal fade" id="avaliarcertificado" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal fade" id="avaliar_certificado" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
             <div class="modal-header">

@@ -1,3 +1,4 @@
+<!-- View Aluno -->
 @extends('layouts.app')
 @section('content')
 <div class="container-fluid">
@@ -44,9 +45,9 @@
                                     </td>
                                     <td>
                                         <div class="btn-group-horizontal">
-                                            <button type="button" class="btn btn-warning" onclick="enviaDados({{$certificado->id_certificado}})">Editar</button>
+                                            <button type="button" class="btn btn-warning" onclick="enviaDadosViewAluno({{$certificado->id_certificado}})">Editar</button>
                                             <button type="button" class="btn btn-danger" onclick="excluirCertificado({{$certificado->id_certificado}})">Excluir</button>
-                                            <a href="{{ route('BaixarCertificado', $certificado->id_certificado) }}" role="button" class="btn btn-success">Baixar</a>
+                                            <a href="{{ route('DownloadCertificado(Aluno)', $certificado->id_certificado) }}" role="button" class="btn btn-success">Baixar</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -76,12 +77,12 @@
                         @endif
                         @if(Session('sucesso'))
                             <div class="alert alert-success text-center">
-                                {{Session('sucesso')}}
+                            <i class="fas fa-check"></i> {{Session('sucesso')}}
                             </div>
                         @endif
                         @if(Session('erro'))
                             <div class="alert alert-danger text-center">
-                                {{Session('erro')}}
+                            <i class="fas fa-exclamation-triangle"></i> {{Session('erro')}}
                             </div>
                         @endif
                     </div>
@@ -95,7 +96,7 @@
     </div>
 
     <!-- Modal Editar Certificado -->
-    <div class="modal fade" id="editarcertificado" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="editar_certificado" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -159,7 +160,7 @@
         </div>
 
         <!-- Modal Excluir Certificado -->
-        <div class="modal" tabindex="-1" id="excluircertificado" role="dialog">
+        <div class="modal" tabindex="-1" id="excluir_certificado" role="dialog">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">

@@ -1,11 +1,11 @@
-function enviaDados(id){
+function enviaDadosViewAluno(id){
     
     $.ajax({
-        url: "/listadados/"+id
+        url: "/aluno/certificado/detalhes/editar/"+id
       })
       .done(function(data) {
         //console.log(data.carga_horaria);
-        $("#editarcertificado").modal({
+        $("#editar_certificado").modal({
           show: true
         });
         $('#id').val(data.id_certificado);
@@ -17,13 +17,13 @@ function enviaDados(id){
     );
 }
 
-function verDados(id){
+function enviaDadosViewProfessor(id){
     $.ajax({
-      url: "/certificado/detalhes/"+id
+      url: "/professor/certificado/detalhes/avaliar/"+id
     })
     .done(function(data) {
       //console.log(data);
-      $("#avaliarcertificado").modal({
+      $("#avaliar_certificado").modal({
         show:true
       });
       $("#id_certificado").val(data.id_certificado);
@@ -37,11 +37,11 @@ function verDados(id){
 
 function excluirCertificado(id){
   $.ajax({
-    url: "/ajax/certificado/delete/"+id
+    url: "/aluno/certificado/delete/"+id
   })
   .done(function(data) {
     //console.log(data);
-    $("#excluircertificado").modal({
+    $("#excluir_certificado").modal({
       show:true
     });
     $("#id_certificado_excluir").val(data.id_certificado);

@@ -98,14 +98,18 @@ class ProfessorController extends Controller
         return $exibir;
     }
 
-    public function verDados($id)
+    /* Função para mostrar detalhes dos certificados para serem avaliados 
+     * Envia o resultado da consulta para a função ajax "enviaDadosViewProfessor" que esta no arquivo
+     * "public/js/lista_dados.js"
+    */
+    public function avaliarDetalhesCertificado($id)
     {
         $consulta = DB::table('certificados')->SELECT('id_certificado', 'tipo', 'inicio', 'termino', 'carga_horaria')->where('id_certificado', $id)->first();
         return response()->json($consulta);
     }
 
     /* Função para fazer o download do certificado */
-    public function download($id)
+    public function downloadCertificado($id)
     {
         //$id_user = Auth::user()->id;
         $arquivo = Certificados::where('user_id', 1)->where('id_certificado', $id)->first();
