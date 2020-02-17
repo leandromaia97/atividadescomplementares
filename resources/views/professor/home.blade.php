@@ -33,9 +33,9 @@
                                 <tr>
                                     <td></td>
                                     <td>{{$certificado->tipo}}</td>
-                                    <td><i class="far fa-calendar-alt"></i> {{$certificado->inicio}}</td>
-                                    <td><i class="far fa-calendar-alt"></i> {{$certificado->termino}}</td>
-                                    <td><i class="far fa-clock"></i> {{$certificado->carga_horaria}}<span>h</span></td>
+                                    <td>{{$certificado->inicio}}</td>
+                                    <td>{{$certificado->termino}}</td>
+                                    <td>{{$certificado->carga_horaria}}<span>h</span></td>
                                     <td></td>
                                     <td>
                                         <a href="{{ route('DownloadCertificado(Professor)', $certificado->id_certificado) }}" role="button" class="btn btn-primary">Baixar</a>
@@ -180,7 +180,7 @@
                     <div class="form-group col-md-6">
                         <label for="situacao">Situação</label>
                         <select id="situacao" class="form-control @error('situacao') is-invalid @enderror" name="situacao">
-                            <option>Selecionar...</option>
+                            <option disabled selected>Selecionar...</option>
                             <option value="Aprovado">Aprovado</option>
                             <option value="Reprovado">Reprovado</option>
                         </select>

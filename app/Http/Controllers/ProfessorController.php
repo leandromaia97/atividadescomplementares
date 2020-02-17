@@ -112,7 +112,7 @@ class ProfessorController extends Controller
     public function downloadCertificado($id)
     {
         //$id_user = Auth::user()->id;
-        $arquivo = Certificados::where('user_id', 1)->where('id_certificado', $id)->first();
+        $arquivo = Certificados::where('user_id', 2)->where('id_certificado', $id)->first();
 
        //dd($arquivo);
 

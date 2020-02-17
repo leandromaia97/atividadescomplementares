@@ -21,8 +21,8 @@ class AlunoController extends Controller
         $resultado = $this->mostrarCertificado();
         return view ('aluno.home', compact('resultado'));
 
-        $soma = $this->calcularHorasComplementares();
-        return view ('aluno.home', compact('soma'));
+        //$soma = $this->calcularHorasComplementares();
+        //return view ('aluno.home', compact('soma'));
     }
 
     /**
@@ -119,18 +119,34 @@ class AlunoController extends Controller
     /* Função para fazer o download do certificado */
     public function downloadCertificado($id)
     {
-        //$id_user = Auth::user()->id;
-        $arquivo = Certificados::where('user_id', 1)->where('id_certificado', $id)->first();
+        //dd($request);
+        $request->validate([
+            'id_certificado' => 'required',
+        ]);
+
+        $id_user = 2; //Auth::user()->id;
+        $user_id_certificado = Certificados::pluck('user_id')->first();
+        dd($user_id_certificado);
+
+        if($id_user == $user_id_certificado){
+
+            $arquivo = Certificados::where('id_certificado', $id)->first();
+
+            if(isset($arquivo)) {
+                $nome_certificado = $arquivo->nome_certificado;
+                $path = $arquivo->path_certificado;
+                return response()->download('storage/' . $path, $nome_certificado);
+            }else{
+                return redirect()->back()->with('erro', 'Não foi possivel encontrar o certificado solicitado. Por favor tente novamente');
+            }
+        }else{
+            return redirect('/aluno')->with('erro', 'Você não tem permissão para fazer o download deste arquivo');
+        }
 
        //dd($arquivo);
 
-        if(isset($arquivo)) {
-            $nome_certificado = $arquivo->nome_certificado;
-            $path = $arquivo->path_certificado;
-            return response()->download('storage/' . $path, $nome_certificado);
-        }else{
-            return redirect()->back()->with('erro', 'Não foi possivel encontrar o certificado solicitado. Por favor tente novamente');
-        }
+        
+        
 
     }
 
@@ -162,7 +178,7 @@ class AlunoController extends Controller
             'cargahoraria' => 'required',
         ]);
 
-        $id_user_auth = 1; //Auth::user()->id;
+        $id_user_auth = 2; //Auth::user()->id;
         //dd($id_user_auth);
         $id_user_certificado = Certificados::pluck('user_id')->first();
         //dd($id_user_certificado);
