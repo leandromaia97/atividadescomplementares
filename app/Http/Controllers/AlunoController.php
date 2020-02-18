@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use App\Model\Certificados;
+use App\Model\Avaliacoes;
 use Illuminate\Support\Facades\DB;
 use Validation;
 use Storage;
@@ -19,10 +20,10 @@ class AlunoController extends Controller
     public function index()
     {
         $resultado = $this->mostrarCertificado();
-        return view ('aluno.home', compact('resultado'));
+        $total_horas = $this->calcularHorasComplementares();
+        //dd($total_horas);
+        return view ('aluno.home', compact('resultado', 'total_horas'));
 
-        //$soma = $this->calcularHorasComplementares();
-        //return view ('aluno.home', compact('soma'));
     }
 
     /**
@@ -119,14 +120,11 @@ class AlunoController extends Controller
     /* Função para fazer o download do certificado */
     public function downloadCertificado($id)
     {
-        //dd($request);
-        $request->validate([
-            'id_certificado' => 'required',
-        ]);
-
+        
         $id_user = 2; //Auth::user()->id;
+        //dd($id_user);
         $user_id_certificado = Certificados::pluck('user_id')->first();
-        dd($user_id_certificado);
+        //dd($user_id_certificado);
 
         if($id_user == $user_id_certificado){
 
@@ -140,7 +138,7 @@ class AlunoController extends Controller
                 return redirect()->back()->with('erro', 'Não foi possivel encontrar o certificado solicitado. Por favor tente novamente');
             }
         }else{
-            return redirect('/aluno')->with('erro', 'Você não tem permissão para fazer o download deste arquivo');
+            return redirect()->back()->with('erro', 'Você não tem permissão para fazer o download deste arquivo');
         }
 
        //dd($arquivo);
@@ -178,7 +176,7 @@ class AlunoController extends Controller
             'cargahoraria' => 'required',
         ]);
 
-        $id_user_auth = 2; //Auth::user()->id;
+        $id_user_auth = 1; //Auth::user()->id;
         //dd($id_user_auth);
         $id_user_certificado = Certificados::pluck('user_id')->first();
         //dd($id_user_certificado);
@@ -229,10 +227,16 @@ class AlunoController extends Controller
     public function calcularHorasComplementares()
     {
         //$id_user = Auth::user()->id;
-        $user_id_certificado = Certificados::all('user_id');
-        $situacao = Certificados::all('situacao')->where('Aprovado');
+        $user_id_certificado = Certificados::pluck('user_id')->first();
+        //$situacao = Avaliacoes::pluck('situacao')->where('Aprovado');
 
-        $soma = Certificados::where('user_id', 1)->where('situacao', $situacao)->sum('carga_horaria');
+        //if($user_id_certificado == 1 && $situacao = 'Aprovado'){
+            //$soma = Certificados::where('user_id', 1)->sum('carga_horaria');
+        //}
+
+        $soma = Certificados::where('user_id', 1)->sum('carga_horaria');
+
+        return $soma;
 
     }
 }
