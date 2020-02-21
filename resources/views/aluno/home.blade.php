@@ -28,7 +28,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($resultado as $certificado)
+                                @foreach($exibir as $certificado)
                                 <tr>
                                     <td>{{$certificado->created_at}}</td>
                                     <td>{{$certificado->nome_certificado}}</td>
@@ -41,7 +41,7 @@
                                     </td>
                                     <td>
                                         <div class="btn-group-horizontal">
-                                            <a href="{{ route('DownloadCertificado(Aluno)', $certificado->id_certificado) }}" role="button" class="btn btn-success mb-1">Download</a>
+                                            <a href="{{ route('DownloadCertificado-Aluno', $certificado->id_certificado) }}" role="button" class="btn btn-success mb-1">Download</a>
                                             <div class="d-flex">
                                                 <div class="dropdown mr-1">
                                                   <button type="button" class="btn btn-primary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
@@ -62,7 +62,7 @@
                             </tbody>
                         </table>
                     </div>
-                    @if($resultado->isEmpty())
+                    @if($exibir->isEmpty())
                         <div class="alert alert-warning text-center col-12" role="alert">Você não enviou nenhum certificado ainda</div>
                     @else
                     @endif
@@ -80,7 +80,7 @@
 
                     <div class="form-group col-md-12">
                         <div class="font-weight-bold">Minhas Horas Complementares</div>
-                        <div>Total de Horas Complementares: {{$total_horas}}<span>h</span></div>
+                        <div>Total de Horas Complementares: {{$total_horas_complementares}}<span>h</span></div>
 
                         <div>Minimo de Horas para Aprovação:</div>
 

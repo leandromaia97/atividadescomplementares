@@ -22,7 +22,9 @@ class ProfessorController extends Controller
     {
         $resultado = $this->mostrarCertificado();
         //dd($resultado);
-        return view ('professor.home', compact('resultado'));
+        if(Route::){
+            return view ('professor.home', compact('resultado'));
+        }
     }
 
     /**
@@ -108,23 +110,7 @@ class ProfessorController extends Controller
         return response()->json($consulta);
     }
 
-    /* Função para fazer o download do certificado */
-    public function downloadCertificado($id)
-    {
-        //$id_user = Auth::user()->id;
-        $arquivo = Certificados::where('user_id', 2)->where('id_certificado', $id)->first();
-
-       //dd($arquivo);
-
-        if(isset($arquivo)) {
-            $nome_certificado = $arquivo->nome_certificado;
-            $path = $arquivo->path_certificado;
-            return response()->download('storage/' . $path, $nome_certificado);
-        }
-
-        return redirect()->back()->with('erro', 'Não foi possivel encontrar o certificado solicitado');
-    }
-
+    
     /**
      * Show the form for editing the specified resource.
      *

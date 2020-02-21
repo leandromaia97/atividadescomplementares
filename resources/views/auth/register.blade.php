@@ -15,7 +15,7 @@
                             <label for="cpf" class="col-md-4 col-form-label text-md-right">{{ __('CPF') }}</label>
 
                             <div class="col-md-6">
-                                <input id="cpf" type="text" class="form-control @error('name') is-invalid @enderror" name="cpf" value="{{ old('cpf') }}" required autocomplete="cpf" autofocus>
+                                <input id="cpf" type="text" class="form-control @error('cpf') is-invalid @enderror" name="cpf" value="{{ old('cpf') }}" required autocomplete="cpf" autofocus>
 
                                 @error('cpf')
                                     <span class="invalid-feedback" role="alert">
@@ -29,9 +29,9 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nome') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="name" type="text" class="form-control @error('nome') is-invalid @enderror" name="nome" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
-                                @error('name')
+                                @error('nome')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -57,9 +57,9 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Senha') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="password" type="password" class="form-control @error('senha') is-invalid @enderror" name="senha" required autocomplete="new-password">
 
-                                @error('password')
+                                @error('senha')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -71,7 +71,12 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirmar Senha') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" type="password" class="form-control @error('confirmar_senha') is-invalid @enderror" name="confirmar_senha" required autocomplete="new-password">
+                                @error('confirmar_senha')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 

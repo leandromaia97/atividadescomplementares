@@ -19,43 +19,23 @@ Route::get('/home', function () {
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-//Route::get('/aluno', 'AlunoController@index')->name('AlunoHome');
-//Route::get('/professor', 'ProfessorController@index')->name('ProfessorHome');
 
-//Rotas para salvar dados
-//Route::post('aluno/certificado/inserir', 'AlunoController@store')->name('InserirCertificado');
-//Route::post('professor/certificado/avaliar', 'ProfessorController@store')->name('AvaliarCertificado');
-
-//Rotas para editar certificado
-//Route::match(['get', 'put'], 'aluno/certificado/editar', 'AlunoController@update')->name('EditarCertificado');
-
-//Excluir certificado
-//Route::delete('aluno/certificado/excluir', 'AlunoController@destroy')->name('ExcluirCertificado');
-
-//Rota para download dos certificados
-//Route::get('aluno/arquivo/download/{id}', 'AlunoController@downloadCertificado')->name('DownloadCertificado(Aluno)');
-//Route::get('professor/arquivo/download/{id}', 'ProfessorController@downloadCertificado')->name('DownloadCertificado(Professor)');
-
-//Rotas Ajax
-//Route::get('aluno/certificado/detalhes/editar/{id}', 'AlunoController@editarDetalhesCertificado');
-//Route::get('professor/certificado/detalhes/avaliar/{id}', 'ProfessorController@avaliarDetalhesCertificado');
-//Route::get('aluno/certificado/delete/{id}', 'AlunoController@ajaxCertificadoDelete');
-
-Route::group(['prefix'=>'aluno'], function(){
-    Route::get('/', 'AlunoController@index')->name('AlunoHome');
-    Route::post('/certificado/inserir', 'AlunoController@store')->name('InserirCertificado');
-    Route::match(['get', 'put'], '/certificado/editar', 'AlunoController@update')->name('EditarCertificado');
-    Route::delete('/certificado/excluir', 'AlunoController@destroy')->name('ExcluirCertificado');
-    Route::get('/arquivo/download/{id}', 'AlunoController@downloadCertificado')->name('DownloadCertificado(Aluno)');
+Route::prefix('/aluno')->group(function(){
+    Route::get('/', 'certificadosController@index');
+    Route::get('arquivo/downloads/{id}', 'CertificadosController@downloadCertificado')->name('DownloadCertificado-Aluno');
+    Route::post('certificado/inserir', 'CertificadosController@store')->name('InserirCertificado');
+    Route::match(['get', 'put'], 'certificado/editar', 'CertificadosController@update')->name('EditarCertificado');
+    Route::delete('certificado/excluir', 'CertificadosController@destroy')->name('ExcluirCertificado');
+   
     /* Rotas para requisições ajax */
-    Route::get('/certificado/detalhes/editar/{id}', 'AlunoController@editarDetalhesCertificado');
-    Route::get('/certificado/delete/{id}', 'AlunoController@ajaxCertificadoDelete');
+    Route::get('certificado/detalhes/editar/{id}', 'CertificadosController@editarDetalhesCertificado');
+    Route::get('certificado/delete/{id}', 'CertificadosController@ajaxCertificadoDelete');
 });
 
-Route::group(['prefix'=>'professor'], function(){
-    Route::get('/', 'ProfessorController@index')->name('ProfessorHome');
+Route::group(['prefix'=>'/professor'], function(){
+    Route::get('/', 'CertificadosController@index');
     Route::post('/certificado/avaliar', 'ProfessorController@store')->name('AvaliarCertificado');
-    Route::get('/arquivo/download/{id}', 'ProfessorController@downloadCertificado')->name('DownloadCertificado(Professor)');
+    Route::get('/arquivo/download/{id}', 'ProfessorController@downloadCertificado')->name('DownloadCertificado-Professor');
     /* Rota para requisição ajax */
     Route::get('/certificado/detalhes/avaliar/{id}', 'ProfessorController@avaliarDetalhesCertificado');
 });

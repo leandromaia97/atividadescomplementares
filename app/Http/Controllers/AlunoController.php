@@ -19,10 +19,9 @@ class AlunoController extends Controller
      */
     public function index()
     {
-        $resultado = $this->mostrarCertificado();
-        $total_horas = $this->calcularHorasComplementares();
-        //dd($total_horas);
-        return view ('aluno.home', compact('resultado', 'total_horas'));
+        //$resultado = $this->mostrarCertificado();
+        //$total_horas = $this->calcularHorasComplementares();
+        //return view ('aluno.home', compact('total_horas'));
 
     }
 
@@ -42,40 +41,40 @@ class AlunoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //dd($request);
-        $request->validate([
-            'arquivo' => 'required|mimes:pdf,doc,docx,jpeg,jpg,png',
-            'tipo' => 'required',
-            'inicio' => 'required',
-            'termino' => 'required',
-            'cargahoraria' => 'required',
-        ]);
+    // public function store(Request $request)
+    // {
+    //     //dd($request);
+    //     $request->validate([
+    //         'arquivo' => 'required|mimes:pdf,doc,docx,jpeg,jpg,png',
+    //         'tipo' => 'required',
+    //         'inicio' => 'required',
+    //         'termino' => 'required',
+    //         'cargahoraria' => 'required',
+    //     ]);
 
-        if($request->file('arquivo')->isValid()){
+    //     if($request->file('arquivo')->isValid()){
 
-            $path_certificados = $request->file('arquivo')->store('certificados', 'public');
-            $file = $request->file('arquivo');
+    //         $path_certificados = $request->file('arquivo')->store('certificados', 'public');
+    //         $file = $request->file('arquivo');
 
-            $post_certificado = new Certificados();
-            $post_certificado->path_certificado = $path_certificados; //Salva o caminho do arquivo
-            $post_certificado->nome_certificado = $file->getClientOriginalName(); //Salva o nome do arquivo
-            $post_certificado->tipo = $request->tipo;
-            $post_certificado->inicio = $request->inicio;
-            $post_certificado->termino = $request->termino;
-            $post_certificado->carga_horaria = $request->cargahoraria;
-            $post_certificado->user_id = 1;
+    //         $post_certificado = new Certificados();
+    //         $post_certificado->path_certificado = $path_certificados; //Salva o caminho do arquivo
+    //         $post_certificado->nome_certificado = $file->getClientOriginalName(); //Salva o nome do arquivo
+    //         $post_certificado->tipo = $request->tipo;
+    //         $post_certificado->inicio = $request->inicio;
+    //         $post_certificado->termino = $request->termino;
+    //         $post_certificado->carga_horaria = $request->cargahoraria;
+    //         $post_certificado->user_id = 1;
 
-            $post_certificado->save();
+    //         $post_certificado->save();
 
-            if($post_certificado){
-                return redirect('/aluno')->with('sucesso', 'O certificado foi enviado com sucesso');
-            }else{
-                return redirect('/aluno')->with('erro', 'Ocorreu um erro ao tentar enviar seu certificado. Por favor tente novamente');
-            }
-        }
-    }
+    //         if($post_certificado){
+    //             return redirect('/aluno')->with('sucesso', 'O certificado foi enviado com sucesso');
+    //         }else{
+    //             return redirect('/aluno')->with('erro', 'Ocorreu um erro ao tentar enviar seu certificado. Por favor tente novamente');
+    //         }
+    //     }
+    // }
 
     /**
      * Display the specified resource.
@@ -89,64 +88,59 @@ class AlunoController extends Controller
     }
 
     /* Função para mostrar os certificados o total e o minino de horas complementares na tela para o aluno */
-    public function mostrarCertificado()
-    {
-        $exibir = Certificados::all();
-        //dd($exibir);
-        return $exibir;
+    // public function mostrarCertificado()
+    // {
+    //     $exibir = Certificados::all();
+    //     //dd($exibir);
+    //     return $exibir;
 
-    }
+    // }
 
     /* Função para mostrar detalhes dos certificados para serem editados
      * Envia o resultado da consulta para a função ajax "enviaDadosViewAluno" que esta no arquivo
      * "public/js/lista_dados.js"
     */
-    public function editarDetalhesCertificado($id)
-    {
-        $consulta = DB::table('certificados')->SELECT('id_certificado', 'tipo', 'inicio', 'termino', 'carga_horaria')->where('id_certificado', $id)->first();
-        return response()->json($consulta);
-    }
+    // public function editarDetalhesCertificado($id)
+    // {
+    //     $consulta = DB::table('certificados')->SELECT('id_certificado', 'tipo', 'inicio', 'termino', 'carga_horaria')->where('id_certificado', $id)->first();
+    //     return response()->json($consulta);
+    // }
 
-    /* Função para mostrar detalhes dos certificados para serem excluidos
-     * Envia o resultado da consulta para a função ajax "excluirCertificado" que esta no arquivo
-     * "public/js/lista_dados.js"
-    */
-    public function ajaxCertificadoDelete($id)
-    {
-        $certificado_delete = DB::table('certificados')->SELECT('id_certificado', 'nome_certificado')->where('id_certificado', $id)->first();
-        return response()->json($certificado_delete);
-    }
+    // /* Função para mostrar detalhes dos certificados para serem excluidos
+    //  * Envia o resultado da consulta para a função ajax "excluirCertificado" que esta no arquivo
+    //  * "public/js/lista_dados.js"
+    // */
+    // public function ajaxCertificadoDelete($id)
+    // {
+    //     $certificado_delete = DB::table('certificados')->SELECT('id_certificado', 'nome_certificado')->where('id_certificado', $id)->first();
+    //     return response()->json($certificado_delete);
+    // }
 
-    /* Função para fazer o download do certificado */
-    public function downloadCertificado($id)
-    {
+    // /* Função para fazer o download do certificado */
+    // public function downloadCertificado($id)
+    // {
         
-        $id_user = 2; //Auth::user()->id;
-        //dd($id_user);
-        $user_id_certificado = Certificados::pluck('user_id')->first();
-        //dd($user_id_certificado);
-
-        if($id_user == $user_id_certificado){
-
-            $arquivo = Certificados::where('id_certificado', $id)->first();
-
-            if(isset($arquivo)) {
-                $nome_certificado = $arquivo->nome_certificado;
-                $path = $arquivo->path_certificado;
-                return response()->download('storage/' . $path, $nome_certificado);
-            }else{
-                return redirect()->back()->with('erro', 'Não foi possivel encontrar o certificado solicitado. Por favor tente novamente');
-            }
-        }else{
-            return redirect()->back()->with('erro', 'Você não tem permissão para fazer o download deste arquivo');
-        }
-
-       //dd($arquivo);
-
+    //     $id_user = 3; //Auth::user()->id;
+    //     //dd($id_user);
         
-        
+    //     $certificado = Certificados::find($id)->first();
+      
 
-    }
+    //     if($id_user == $certificado->user_id){
+
+    //         $arquivo = Certificados::where('id_certificado', $id)->first();
+
+    //         if(isset($arquivo)) {
+    //             $nome_certificado = $arquivo->nome_certificado;
+    //             $path = $arquivo->path_certificado;
+    //             return response()->download('storage/' . $path, $nome_certificado);
+    //         }else{
+    //             return redirect()->back()->with('erro', 'Não foi possivel encontrar o certificado solicitado. Por favor tente novamente');
+    //         }
+    //     }else{
+    //         return redirect()->back()->with('erro', 'Você não tem permissão para fazer o download deste arquivo');
+    //      
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -166,37 +160,37 @@ class AlunoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
-    {
-        $request->validate([
-            'id_certificado' => 'required',
-            'tipo' => 'required',
-            'inicio' => 'required',
-            'termino' => 'required',
-            'cargahoraria' => 'required',
-        ]);
+    // public function update(Request $request)
+    // {
+    //     $request->validate([
+    //         'id_certificado' => 'required',
+    //         'tipo' => 'required',
+    //         'inicio' => 'required',
+    //         'termino' => 'required',
+    //         'cargahoraria' => 'required',
+    //     ]);
 
-        $id_user_auth = 1; //Auth::user()->id;
-        //dd($id_user_auth);
-        $id_user_certificado = Certificados::pluck('user_id')->first();
-        //dd($id_user_certificado);
+    //     $id_user_auth = 1; //Auth::user()->id;
+    //     //dd($id_user_auth);
+    //     $id_user_certificado = Certificados::pluck('user_id')->first();
+    //     //dd($id_user_certificado);
 
-        if($id_user_auth == $id_user_certificado){
+    //     if($id_user_auth == $id_user_certificado){
 
-            $post = Certificados::findOrFail($request->id_certificado);
-            $post->tipo = $request->tipo;
-            $post->inicio = $request->inicio;
-            $post->termino = $request->termino;
-            $post->carga_horaria = $request->cargahoraria;
-            $post->save();
+    //         $post = Certificados::findOrFail($request->id_certificado);
+    //         $post->tipo = $request->tipo;
+    //         $post->inicio = $request->inicio;
+    //         $post->termino = $request->termino;
+    //         $post->carga_horaria = $request->cargahoraria;
+    //         $post->save();
 
-            return redirect('/aluno')->with('sucesso','As informações do certificado foram alteradas com sucesso');
+    //         return redirect('/aluno')->with('sucesso','As informações do certificado foram alteradas com sucesso');
 
-        }else{
-            return redirect('/aluno')->with('erro','Você não tem permissão para editar este certificado');
-        }
+    //     }else{
+    //         return redirect('/aluno')->with('erro','Você não tem permissão para editar este certificado');
+    //     }
 
-    }
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -204,39 +198,39 @@ class AlunoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
-    {
-        $request->validate([
-            'id_certificado_excluir' => 'required',
-        ]);
+    // public function destroy(Request $request)
+    // {
+    //     $request->validate([
+    //         'id_certificado_excluir' => 'required',
+    //     ]);
 
-        //$id_user = Auth::user()->id;
-        $post = $request->id_certificado_excluir;
-        $post = Certificados::where('user_id', 2)->where('id_certificado', $post)->delete();
+    //     //$id_user = Auth::user()->id;
+    //     $post = $request->id_certificado_excluir;
+    //     $post = Certificados::where('user_id', 2)->where('id_certificado', $post)->delete();
 
-        if($post){
-            return redirect('/aluno')->with('sucesso', 'O certificado foi excluido com sucesso');
-        }else{
-            return redirect('/aluno')->with('erro', 'Ocorreu um erro ao tentar excluir o certificado. Por favor tente novamente');
-        }
-    }
+    //     if($post){
+    //         return redirect('/aluno')->with('sucesso', 'O certificado foi excluido com sucesso');
+    //     }else{
+    //         return redirect('/aluno')->with('erro', 'Ocorreu um erro ao tentar excluir o certificado. Por favor tente novamente');
+    //     }
+    // }
 
     /* Função para somar as horas de cada certificado e definir a quantidade de horas complementares
     * que o aluno possui.
     */
-    public function calcularHorasComplementares()
-    {
-        //$id_user = Auth::user()->id;
-        $user_id_certificado = Certificados::pluck('user_id')->first();
-        //$situacao = Avaliacoes::pluck('situacao')->where('Aprovado');
+    // public function calcularHorasComplementares()
+    // {
+    //     $id_user_auth = 0; //Auth::user()->id;
+    //     $user_id_certificado = Certificados::pluck('user_id')->first();
+    //     $situacao = Avaliacoes::pluck('situacao')->implode(', ');
+    //     //dd($situacao);
+    //     // if($id_user_auth == $user_id_certificado && $situacao == 'Aprovado'){
+    //     //     $soma = Certificados::sum('carga_horaria');
+    //     // }
 
-        //if($user_id_certificado == 1 && $situacao = 'Aprovado'){
-            //$soma = Certificados::where('user_id', 1)->sum('carga_horaria');
-        //}
+    //     $soma = Certificados::where('user_id', 1)->sum('carga_horaria');
 
-        $soma = Certificados::where('user_id', 1)->sum('carga_horaria');
+    //     return $soma;
 
-        return $soma;
-
-    }
+    // }
 }
