@@ -48,23 +48,24 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        // return Validator::make($data, [
-        //     'cpf' => ['required', 'number', 'min:11'],
-        //     'nome' => ['required', 'string', 'max:255'],
-        //     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-        //     'senha' => ['required', 'string', 'min:6', 'confirmed'],
-        //     'confirmar_senha' => ['required', 'min:6'],
-        // ]);
-
-        $request->Validate([
-            'cpf' => ['required | number | min:11'],
-            'nome' => 'required | string',
-            'email' => 'required | string | email | max:255 | unique:users',
-            'senha' => 'required | string | min:6 | confirmed',
-            'confirmar_senha' =>'required | string | min:6',
+        return Validator::make($data, [
+            'cpf' => ['required', 'string', 'min:11'],
+            'nome' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'senha' => ['required', 'string', 'min:6', 'confirmed'],
+            'confirmar_senha' => ['required', 'min:6'],
         ]);
 
-        $request = $data;
+        // $request->Validate([
+        //     'cpf' => 'required | number | min:11',
+        //     'nome' => 'required | string',
+        //     'email' => 'required | string | email | max:255 | unique:users',
+        //     'senha' => 'required | string | min:6 | confirmed',
+        //     'confirmar_senha' =>'required | string | min:6',
+        // ]);
+
+        // $post->cpf = $request->cpf;
+        // $post->nome = $request->nome;
     }
 
     /**

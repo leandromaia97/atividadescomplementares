@@ -43,41 +43,41 @@ class ProfessorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $validator = \Validator::make($request->all(), [
-            'id_certificado' => 'required',
-            'situacao' => 'required',
-            'justificativa' => 'required',
-        ]);
+    // public function store(Request $request)
+    // {
+    //     $validator = \Validator::make($request->all(), [
+    //         'id_certificado' => 'required',
+    //         'situacao' => 'required',
+    //         'justificativa' => 'required',
+    //     ]);
 
-        if ($validator->fails())
-        {
-            return response()->json(['errors'=>$validator->errors()->all()]);
-        }
+    //     if ($validator->fails())
+    //     {
+    //         return response()->json(['errors'=>$validator->errors()->all()]);
+    //     }
 
-        // $request->validate([
-        //     'id_certificado' => 'required',
-        //     'situacao' => 'required',
-        //     'justificativa' => 'required',
-        // ]);
+    //     // $request->validate([
+    //     //     'id_certificado' => 'required',
+    //     //     'situacao' => 'required',
+    //     //     'justificativa' => 'required',
+    //     // ]);
 
-        $post = new Avaliacoes();
-        $post->certificado_id = $request->id_certificado;
-        $post->situacao = $request->situacao;
-        $post->justificativa = $request->justificativa;
-        $post->user_id = 1;
-        $post->save();
+    //     $post = new Avaliacoes();
+    //     $post->certificado_id = $request->id_certificado;
+    //     $post->situacao = $request->situacao;
+    //     $post->justificativa = $request->justificativa;
+    //     $post->user_id = 1;
+    //     $post->save();
 
-        if($post){
-            return redirect('/professor')->with('sucesso','Certificado avaliado com sucesso!');
-        }else {
-            return redirect('/professor')->with('erro','Não foi possível avaliar o certificado. Por favor tente novamente');
-        }
+    //     if($post){
+    //         return redirect('/professor')->with('sucesso','Certificado avaliado com sucesso!');
+    //     }else {
+    //         return redirect('/professor')->with('erro','Não foi possível avaliar o certificado. Por favor tente novamente');
+    //     }
 
-        //return redirect()->back()->with('mensagem', $msg);
+    //     //return redirect()->back()->with('mensagem', $msg);
 
-    }
+    // }
 
     /**
      * Display the specified resource.
@@ -104,11 +104,11 @@ class ProfessorController extends Controller
      * Envia o resultado da consulta para a função ajax "enviaDadosViewProfessor" que esta no arquivo
      * "public/js/lista_dados.js"
     */
-    public function avaliarDetalhesCertificado($id)
-    {
-        $consulta = DB::table('certificados')->SELECT('id_certificado', 'tipo', 'inicio', 'termino', 'carga_horaria')->where('id_certificado', $id)->first();
-        return response()->json($consulta);
-    }
+    // public function avaliarDetalhesCertificado($id)
+    // {
+    //     $consulta = DB::table('certificados')->SELECT('id_certificado', 'tipo', 'inicio', 'termino', 'carga_horaria')->where('id_certificado', $id)->first();
+    //     return response()->json($consulta);
+    // }
 
     
     /**
